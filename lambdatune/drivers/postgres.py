@@ -50,31 +50,31 @@ class PostgresPlan:
 class PostgresDriver(Driver):
     def __init__(self, conf):
         self.config = conf
+        
+        max_attempts = 3
+        wait_between_attempts = 5  # seconds
 
-        c = 0
-
-        while True:
+        for attempt in range(1, max_attempts + 1):
             try:
-                if "password" in self.config:
-                    self.conn = psycopg2.connect(database=self.config["db"], user=self.config["user"],
-                        password=self.config["password"]
-                    )
-                else:
-                    self.conn = psycopg2.connect("dbname='%s' user='%s'" % (self.config["db"], self.config["user"]))
+                self.conn = psycopg2.connect(
+                    dbname=self.config["db"],
+                    user=self.config["user"],
+                    host="127.0.0.1",
+                    port=5432,
+                    password=self.config.get("password")
+                )
+                self.cursor = self.conn.cursor()
+                self.cursor.connection.autocommit = True
+                logging.info("Connected to Postgres")
                 break
             except Exception as e:
-                c += 1
+                logging.warning(f"Attempt {attempt} failed: {e}")
+                if attempt == max_attempts:
+                    raise Exception("Failed to connect to Postgres after multiple attempts")
+                time.sleep(wait_between_attempts)
 
-                if c > 3:
-                    raise e
-
-                logging.error(e)
-
-                time.sleep(10)
-
-        self.cursor = self.conn.cursor()
-        self.cursor.connection.autocommit = True
-        self.cursor.connection.autocommit = True
+        
+        logging.info("Done!")
 
     def get_cursor(self):
         return self.cursor
@@ -275,6 +275,7 @@ class PostgresDriver(Driver):
     def reset_configuration(self, restart_system=True):
         self.conn.autocommit = True
         self.cursor.execute("ALTER SYSTEM RESET ALL;")
+        logging.info("Resetting Postgres configuration")
 
         if restart_system:
             PostgresDriver.restart_system()
@@ -427,4 +428,5 @@ class PostgresDriver(Driver):
             raise Exception(f"System {platform.system()} is not supported.")
         logging.info("Restarting Postgres")
         p = os.popen(restart_cmd).read()
+        
         logging.info("Done!")

@@ -51,8 +51,8 @@ if __name__ == "__main__":
 
     enable_query_scheduler = True
     adaptive_timeout = True
-    create_indexes = True
-    drop_indexes = True
+    create_indexes = False
+    drop_indexes = False
     create_all_indexes_first = False
     compressor = True
     no_queries_in_prompt = False

@@ -1,0 +1,5 @@
+{
+  "execTime": 118.56484413146973,
+  "config": null,
+  "plan": "Limit  (cost=147410.30..147410.31 rows=1 width=32)\n  ->  Finalize Aggregate  (cost=147410.30..147410.31 rows=1 width=32)\n        ->  Gather  (cost=147409.87..147410.28 rows=4 width=32)\n              Workers Planned: 4\n              ->  Partial Aggregate  (cost=146409.87..146409.88 rows=1 width=32)\n                    ->  Parallel Seq Scan on lineitem  (cost=0.00..146259.83 rows=30006 width=12)\n                          Filter: ((l_shipdate >= '1996-01-01'::date) AND (l_shipdate < '1997-01-01 00:00:00'::timestamp without time zone) AND (l_discount >= 0.08) AND (l_discount <= 0.10) AND (l_quantity < '25'::numeric))"
+}

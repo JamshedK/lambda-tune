@@ -1,0 +1,5 @@
+{
+  "execTime": 332.55791664123535,
+  "config": null,
+  "plan": "Limit  (cost=147709.30..153564.57 rows=1 width=27)\n  ->  GroupAggregate  (cost=147709.30..188696.21 rows=7 width=27)\n        Group Key: lineitem.l_shipmode\n        ->  Nested Loop  (cost=147709.30..188204.27 rows=28107 width=27)\n              ->  Gather Merge  (cost=147708.87..151074.25 rows=28107 width=15)\n                    Workers Planned: 4\n                    ->  Sort  (cost=146708.81..146726.38 rows=7027 width=15)\n                          Sort Key: lineitem.l_shipmode\n                          ->  Parallel Seq Scan on lineitem  (cost=0.00..146259.83 rows=7027 width=15)\n                                Filter: ((l_shipmode = ANY ('{RAIL,MAIL}'::bpchar[])) AND (l_commitdate < l_receiptdate) AND (l_shipdate < l_commitdate) AND (l_receiptdate >= '1994-01-01'::date) AND (l_receiptdate < '1995-01-01 00:00:00'::timestamp without time zone))\n              ->  Index Scan using orders_pkey on orders  (cost=0.43..1.32 rows=1 width=20)\n                    Index Cond: (o_orderkey = lineitem.l_orderkey)"
+}

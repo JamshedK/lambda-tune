@@ -1,0 +1,1993 @@
+INFO:root:LLM Config Dir: new_config
+INFO:root:Getting DBMS driver for POSTGRES with user postgres and db tpch
+INFO:root:Connected to Postgres
+INFO:root:Done!
+Restricted license - for non-production use only - expires 2025-11-24
+INFO:gurobipy:Restricted license - for non-production use only - expires 2025-11-24
+DEBUG:openai:message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+DEBUG:openai:api_version=None data='{"model": "gpt-4", "messages": [{"role": "system", "content": "You are a helpful Database Administrator."}, {"role": "user", "content": "Recommend some configuration parameters for postgres to optimize the system\'s performance. Such parameters might include system-level configurations, like memory, query optimizer hints (such as join strategies, scan costs, parallelism, etc), or query-level configurations.Include index recommendations (CREATE INDEX).\\n\\nEach row in the following list has the following format:\\n{a join key A}:{all the joins with A in the workload}.\\n\\nnation.n_regionkey: [\'region.r_regionkey\']\\nsupplier.s_nationkey: [\'nation.n_nationkey\']\\npartsupp.ps_suppkey: [\'supplier.s_suppkey\']\\npartsupp.ps_partkey: [\'part.p_partkey\']\\norders.o_custkey: [\'customer.c_custkey\']\\nlineitem.l_orderkey: [\'lineitem.l_orderkey\', \'orders.o_orderkey\']\\ncustomer.c_nationkey: [\'nation.n_nationkey\']\\npart.p_partkey: [\'lineitem.l_partkey\']\\nsupplier.s_suppkey: [\'lineitem.l_suppkey\', \'partsupp.ps_suppkey\']\\nlineitem.l_partkey: [\'part.p_partkey\']\\nlineitem.l_suppkey: [\'supplier.s_suppkey\']\\norders.o_orderkey: [\'lineitem.l_orderkey\']\\ncustomer.c_custkey: [\'orders.o_custkey\']\\nnation.n_nationkey: [\'supplier.s_nationkey\']\\n\\nThe workload runs on a system with the following specs:memory: 61GiB\\ncores: 8\\n\\nYour response should strictly consist of a python-compatible JSON response of the following schema. Do not include any additional text in the prompt, such as descriptions or intros. Return just apython-compatible list only.\\n{\\n\\tcommands: [list of the SQL commands]\\n}"}], "temperature": 0.2, "max_tokens": 4096}' message='Post details'
+DEBUG:urllib3.util.retry:Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.openai.com:443
+DEBUG:urllib3.connectionpool:https://api.openai.com:443 "POST /v1/chat/completions HTTP/1.1" 200 None
+DEBUG:openai:message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=12193 request_id=req_9ee460f42528ffb9dd4ba1bca1196707 response_code=200
+DEBUG:openai:message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+DEBUG:openai:api_version=None data='{"model": "gpt-4", "messages": [{"role": "system", "content": "You are a helpful Database Administrator."}, {"role": "user", "content": "Recommend some configuration parameters for postgres to optimize the system\'s performance. Such parameters might include system-level configurations, like memory, query optimizer hints (such as join strategies, scan costs, parallelism, etc), or query-level configurations.Include index recommendations (CREATE INDEX).\\n\\nEach row in the following list has the following format:\\n{a join key A}:{all the joins with A in the workload}.\\n\\nnation.n_regionkey: [\'region.r_regionkey\']\\nsupplier.s_nationkey: [\'nation.n_nationkey\']\\npartsupp.ps_suppkey: [\'supplier.s_suppkey\']\\npartsupp.ps_partkey: [\'part.p_partkey\']\\norders.o_custkey: [\'customer.c_custkey\']\\nlineitem.l_orderkey: [\'lineitem.l_orderkey\', \'orders.o_orderkey\']\\ncustomer.c_nationkey: [\'nation.n_nationkey\']\\npart.p_partkey: [\'lineitem.l_partkey\']\\nsupplier.s_suppkey: [\'lineitem.l_suppkey\', \'partsupp.ps_suppkey\']\\nlineitem.l_partkey: [\'part.p_partkey\']\\nlineitem.l_suppkey: [\'supplier.s_suppkey\']\\norders.o_orderkey: [\'lineitem.l_orderkey\']\\ncustomer.c_custkey: [\'orders.o_custkey\']\\nnation.n_nationkey: [\'supplier.s_nationkey\']\\n\\nThe workload runs on a system with the following specs:memory: 61GiB\\ncores: 8\\n\\nYour response should strictly consist of a python-compatible JSON response of the following schema. Do not include any additional text in the prompt, such as descriptions or intros. Return just apython-compatible list only.\\n{\\n\\tcommands: [list of the SQL commands]\\n}"}], "temperature": 0.2, "max_tokens": 4096}' message='Post details'
+DEBUG:urllib3.connectionpool:https://api.openai.com:443 "POST /v1/chat/completions HTTP/1.1" 200 None
+DEBUG:openai:message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=11869 request_id=req_733f0dfcfd315ff18fb17067aaabe3ea response_code=200
+DEBUG:openai:message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+DEBUG:openai:api_version=None data='{"model": "gpt-4", "messages": [{"role": "system", "content": "You are a helpful Database Administrator."}, {"role": "user", "content": "Recommend some configuration parameters for postgres to optimize the system\'s performance. Such parameters might include system-level configurations, like memory, query optimizer hints (such as join strategies, scan costs, parallelism, etc), or query-level configurations.Include index recommendations (CREATE INDEX).\\n\\nEach row in the following list has the following format:\\n{a join key A}:{all the joins with A in the workload}.\\n\\nnation.n_regionkey: [\'region.r_regionkey\']\\nsupplier.s_nationkey: [\'nation.n_nationkey\']\\npartsupp.ps_suppkey: [\'supplier.s_suppkey\']\\npartsupp.ps_partkey: [\'part.p_partkey\']\\norders.o_custkey: [\'customer.c_custkey\']\\nlineitem.l_orderkey: [\'lineitem.l_orderkey\', \'orders.o_orderkey\']\\ncustomer.c_nationkey: [\'nation.n_nationkey\']\\npart.p_partkey: [\'lineitem.l_partkey\']\\nsupplier.s_suppkey: [\'lineitem.l_suppkey\', \'partsupp.ps_suppkey\']\\nlineitem.l_partkey: [\'part.p_partkey\']\\nlineitem.l_suppkey: [\'supplier.s_suppkey\']\\norders.o_orderkey: [\'lineitem.l_orderkey\']\\ncustomer.c_custkey: [\'orders.o_custkey\']\\nnation.n_nationkey: [\'supplier.s_nationkey\']\\n\\nThe workload runs on a system with the following specs:memory: 61GiB\\ncores: 8\\n\\nYour response should strictly consist of a python-compatible JSON response of the following schema. Do not include any additional text in the prompt, such as descriptions or intros. Return just apython-compatible list only.\\n{\\n\\tcommands: [list of the SQL commands]\\n}"}], "temperature": 0.2, "max_tokens": 4096}' message='Post details'
+DEBUG:urllib3.connectionpool:https://api.openai.com:443 "POST /v1/chat/completions HTTP/1.1" 200 None
+DEBUG:openai:message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=11750 request_id=req_5662151e5a917690b03224f76e2ca833 response_code=200
+INFO:root:Initializing Configuration Selector with the following parameters
+INFO:root:Reset Command: ALTER SYSTEM RESET ALL;
+INFO:root:Enable Query Scheduler: True
+INFO:root:Adaptive Tiimeout: True
+INFO:root:Create All Indexes First: False
+INFO:root:Create Indexes: True
+INFO:root:Drop Indexes: True
+INFO:root:Initial Timeout Seconds: 10
+INFO:root:Timeout Interval: 10
+INFO:root:Max Rounds: 5
+INFO:root:Benchmark Name: tpch
+INFO:root:System: POSTGRES
+INFO:root:Results dir: ./test
+INFO:root:Resetting configuration
+INFO:root:Resetting Postgres configuration
+INFO:root:Connected to Postgres
+INFO:root:Done!
+DEBUG:root:Resetting config took: 0.007519960403442383
+INFO:root:Resetting Postgres
+INFO:root:Setting config: ALTER SYSTEM SET effective_io_concurrency = 200;
+INFO:root:Setting config: ALTER SYSTEM SET random_page_cost = 1.1;
+INFO:root:Setting config: ALTER SYSTEM SET max_parallel_workers_per_gather = 4;
+INFO:root:Setting config: ALTER SYSTEM SET shared_buffers = '15GB';
+INFO:root:Setting config: ALTER SYSTEM SET work_mem = '1GB';
+INFO:root:Setting config: ALTER SYSTEM SET max_parallel_workers = 8;
+INFO:root:Setting config: ALTER SYSTEM SET maintenance_work_mem = '2GB';
+INFO:root:Setting config: ALTER SYSTEM SET effective_cache_size = '45GB';
+INFO:root:Restarting Postgres
+INFO:root:Done!
+INFO:root:waiting 5 secs...
+INFO:root:Connected to Postgres
+INFO:root:Done!
+INFO:root:Trying config: config_tpch_tokens_9223372036854775807_0.2_1746590544
+DEBUG:root:Clusters:
+DEBUG:root:Cluster 0 (size: 4):
+DEBUG:root:[0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1]
+DEBUG:root:[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1]
+DEBUG:root:[0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1]
+DEBUG:root:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1]
+DEBUG:root:Cluster 1 (size: 2):
+DEBUG:root:[1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0]
+DEBUG:root:[1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0]
+DEBUG:root:Cluster 2 (size: 1):
+DEBUG:root:[1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0]
+DEBUG:root:Cluster 3 (size: 3):
+DEBUG:root:[0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0]
+DEBUG:root:[0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0]
+DEBUG:root:[0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0]
+DEBUG:root:Cluster 4 (size: 2):
+DEBUG:root:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+DEBUG:root:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+DEBUG:root:Cluster 5 (size: 1):
+DEBUG:root:[0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0]
+DEBUG:root:Cluster 6 (size: 1):
+DEBUG:root:[1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+DEBUG:root:Cluster 7 (size: 1):
+DEBUG:root:[1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0]
+DEBUG:root:Cluster 8 (size: 2):
+DEBUG:root:[1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1]
+DEBUG:root:[1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1]
+DEBUG:root:Cluster 9 (size: 1):
+DEBUG:root:[0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1]
+DEBUG:root:Cluster 10 (size: 2):
+DEBUG:root:[0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0]
+DEBUG:root:[0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0]
+DEBUG:root:Cluster 11 (size: 1):
+DEBUG:root:[1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0]
+DEBUG:root:Cluster 12 (size: 1):
+DEBUG:root:[0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0]
+DEBUG:root:#Subsets: 78
+DEBUG:root:Finished with subset of size: 2
+DEBUG:root:#Subsets: 286
+DEBUG:root:Finished with subset of size: 3
+DEBUG:root:#Subsets: 715
+DEBUG:root:Finished with subset of size: 4
+DEBUG:root:#Subsets: 1287
+DEBUG:root:Finished with subset of size: 5
+DEBUG:root:#Subsets: 1716
+DEBUG:root:Finished with subset of size: 6
+DEBUG:root:#Subsets: 1716
+DEBUG:root:Finished with subset of size: 7
+DEBUG:root:#Subsets: 1287
+DEBUG:root:Finished with subset of size: 8
+DEBUG:root:#Subsets: 715
+DEBUG:root:Finished with subset of size: 9
+DEBUG:root:#Subsets: 286
+DEBUG:root:Finished with subset of size: 10
+DEBUG:root:#Subsets: 78
+DEBUG:root:Finished with subset of size: 11
+DEBUG:root:#Subsets: 13
+DEBUG:root:Finished with subset of size: 12
+DEBUG:root:#Subsets: 1
+DEBUG:root:Finished with subset of size: 13
+DEBUG:root:Cluster: 4, #Indexes: [], Queries: ['01', '06']
+DEBUG:root:Cluster: 5, #Indexes: ['Index(idx_partsupp_ps_partkey_30, partsupp, ps_partkey)', 'Index(idx_supplier_s_suppkey_39, supplier, s_suppkey)', 'Index(idx_partsupp_ps_suppkey_40, partsupp, ps_suppkey)', 'Index(idx_part_p_partkey_34, part, p_partkey)'], Queries: ['16']
+DEBUG:root:Cluster: 1, #Indexes: ['Index(idx_supplier_s_nationkey_33, supplier, s_nationkey)', 'Index(idx_nation_n_nationkey_32, nation, n_nationkey)', 'Index(idx_nation_n_regionkey_41, nation, n_regionkey)', 'Index(idx_partsupp_ps_suppkey_40, partsupp, ps_suppkey)', 'Index(idx_partsupp_ps_partkey_30, partsupp, ps_partkey)', 'Index(idx_supplier_s_suppkey_39, supplier, s_suppkey)', 'Index(idx_part_p_partkey_34, part, p_partkey)'], Queries: ['02', '11']
+DEBUG:root:Cluster: 10, #Indexes: ['Index(idx_orders_o_orderkey_37, orders, o_orderkey)', 'Index(idx_lineitem_l_orderkey_36, lineitem, l_orderkey)'], Queries: ['04', '12']
+DEBUG:root:Cluster: 0, #Indexes: ['Index(idx_lineitem_l_orderkey_36, lineitem, l_orderkey)', 'Index(idx_orders_o_orderkey_37, orders, o_orderkey)', 'Index(idx_orders_o_custkey_28, orders, o_custkey)', 'Index(idx_customer_c_custkey_35, customer, c_custkey)'], Queries: ['03', '13', '18', '22']
+DEBUG:root:Cluster: 9, #Indexes: ['Index(idx_customer_c_custkey_35, customer, c_custkey)', 'Index(idx_orders_o_custkey_28, orders, o_custkey)', 'Index(idx_customer_c_nationkey_29, customer, c_nationkey)', 'Index(idx_nation_n_nationkey_32, nation, n_nationkey)', 'Index(idx_orders_o_orderkey_37, orders, o_orderkey)', 'Index(idx_lineitem_l_orderkey_36, lineitem, l_orderkey)'], Queries: ['10']
+DEBUG:root:Cluster: 12, #Indexes: ['Index(idx_supplier_s_suppkey_39, supplier, s_suppkey)', 'Index(idx_lineitem_l_suppkey_31, lineitem, l_suppkey)'], Queries: ['15']
+DEBUG:root:Cluster: 8, #Indexes: ['Index(idx_nation_n_nationkey_32, nation, n_nationkey)', 'Index(idx_supplier_s_suppkey_39, supplier, s_suppkey)', 'Index(idx_lineitem_l_suppkey_31, lineitem, l_suppkey)', 'Index(idx_supplier_s_nationkey_33, supplier, s_nationkey)', 'Index(idx_nation_n_regionkey_41, nation, n_regionkey)', 'Index(idx_lineitem_l_orderkey_36, lineitem, l_orderkey)', 'Index(idx_customer_c_nationkey_29, customer, c_nationkey)', 'Index(idx_orders_o_orderkey_37, orders, o_orderkey)', 'Index(idx_orders_o_custkey_28, orders, o_custkey)', 'Index(idx_customer_c_custkey_35, customer, c_custkey)'], Queries: ['05', '07']
+DEBUG:root:Cluster: 2, #Indexes: ['Index(idx_supplier_s_nationkey_33, supplier, s_nationkey)', 'Index(idx_supplier_s_suppkey_39, supplier, s_suppkey)', 'Index(idx_lineitem_l_suppkey_31, lineitem, l_suppkey)', 'Index(idx_nation_n_nationkey_32, nation, n_nationkey)', 'Index(idx_orders_o_orderkey_37, orders, o_orderkey)', 'Index(idx_lineitem_l_orderkey_36, lineitem, l_orderkey)'], Queries: ['21']
+DEBUG:root:Cluster: 11, #Indexes: ['Index(idx_supplier_s_nationkey_33, supplier, s_nationkey)', 'Index(idx_nation_n_nationkey_32, nation, n_nationkey)', 'Index(idx_partsupp_ps_suppkey_40, partsupp, ps_suppkey)', 'Index(idx_lineitem_l_orderkey_36, lineitem, l_orderkey)', 'Index(idx_partsupp_ps_partkey_30, partsupp, ps_partkey)', 'Index(idx_supplier_s_suppkey_39, supplier, s_suppkey)', 'Index(idx_lineitem_l_suppkey_31, lineitem, l_suppkey)', 'Index(idx_part_p_partkey_34, part, p_partkey)', 'Index(idx_orders_o_orderkey_37, orders, o_orderkey)', 'Index(idx_lineitem_l_partkey_38, lineitem, l_partkey)'], Queries: ['09']
+DEBUG:root:Cluster: 7, #Indexes: ['Index(idx_supplier_s_nationkey_33, supplier, s_nationkey)', 'Index(idx_nation_n_nationkey_32, nation, n_nationkey)', 'Index(idx_partsupp_ps_suppkey_40, partsupp, ps_suppkey)', 'Index(idx_partsupp_ps_partkey_30, partsupp, ps_partkey)', 'Index(idx_supplier_s_suppkey_39, supplier, s_suppkey)', 'Index(idx_lineitem_l_suppkey_31, lineitem, l_suppkey)', 'Index(idx_part_p_partkey_34, part, p_partkey)', 'Index(idx_lineitem_l_partkey_38, lineitem, l_partkey)'], Queries: ['20']
+DEBUG:root:Cluster: 6, #Indexes: ['Index(idx_supplier_s_nationkey_33, supplier, s_nationkey)', 'Index(idx_nation_n_regionkey_41, nation, n_regionkey)', 'Index(idx_nation_n_nationkey_32, nation, n_nationkey)', 'Index(idx_orders_o_orderkey_37, orders, o_orderkey)', 'Index(idx_lineitem_l_orderkey_36, lineitem, l_orderkey)', 'Index(idx_supplier_s_suppkey_39, supplier, s_suppkey)', 'Index(idx_lineitem_l_suppkey_31, lineitem, l_suppkey)', 'Index(idx_customer_c_nationkey_29, customer, c_nationkey)', 'Index(idx_part_p_partkey_34, part, p_partkey)', 'Index(idx_orders_o_custkey_28, orders, o_custkey)', 'Index(idx_lineitem_l_partkey_38, lineitem, l_partkey)', 'Index(idx_customer_c_custkey_35, customer, c_custkey)'], Queries: ['08']
+DEBUG:root:Cluster: 3, #Indexes: ['Index(idx_lineitem_l_partkey_38, lineitem, l_partkey)', 'Index(idx_part_p_partkey_34, part, p_partkey)'], Queries: ['14', '17', '19']
+INFO:root:Running query: 01 with timeout: 10
+INFO:root:Created Indexes: set()
+INFO:root:Query Indexes: 0
+INFO:root:Running query: 06 with timeout: 8.266480922698975
+INFO:root:Created Indexes: set()
+INFO:root:Query Indexes: 0
+INFO:root:Running query: 16 with timeout: 8.141934871673584
+INFO:root:Created Indexes: set()
+INFO:root:Query Indexes: 4
+INFO:root:Creating index: Index(idx_partsupp_ps_partkey_30, partsupp, ps_partkey)
+INFO:root:Creating index: Index(idx_supplier_s_suppkey_39, supplier, s_suppkey)
+INFO:root:Creating index: Index(idx_partsupp_ps_suppkey_40, partsupp, ps_suppkey)
+INFO:root:Creating index: Index(idx_part_p_partkey_34, part, p_partkey)
+INFO:root:Running query: 02 with timeout: 8.056866645812988
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x118687940>, <lambdatune.config_selection.index.Index object at 0x11c281970>, <lambdatune.config_selection.index.Index object at 0x11dc1cca0>, <lambdatune.config_selection.index.Index object at 0x118687cd0>}
+INFO:root:Query Indexes: 7
+INFO:root:Creating index: Index(idx_supplier_s_nationkey_33, supplier, s_nationkey)
+INFO:root:Creating index: Index(idx_nation_n_regionkey_41, nation, n_regionkey)
+INFO:root:Creating index: Index(idx_nation_n_nationkey_32, nation, n_nationkey)
+INFO:root:Running query: 11 with timeout: 7.959919691085815
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11dc1cd90>, <lambdatune.config_selection.index.Index object at 0x11c1be8b0>, <lambdatune.config_selection.index.Index object at 0x1186878b0>, <lambdatune.config_selection.index.Index object at 0x11dc1cca0>, <lambdatune.config_selection.index.Index object at 0x118687940>, <lambdatune.config_selection.index.Index object at 0x11c281970>, <lambdatune.config_selection.index.Index object at 0x118687cd0>}
+INFO:root:Query Indexes: 5
+INFO:root:Running query: 04 with timeout: 7.924469709396362
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11dc1cd90>, <lambdatune.config_selection.index.Index object at 0x11c1be8b0>, <lambdatune.config_selection.index.Index object at 0x1186878b0>, <lambdatune.config_selection.index.Index object at 0x11dc1cca0>, <lambdatune.config_selection.index.Index object at 0x118687940>, <lambdatune.config_selection.index.Index object at 0x11c281970>, <lambdatune.config_selection.index.Index object at 0x118687cd0>}
+INFO:root:Query Indexes: 2
+INFO:root:Creating index: Index(idx_orders_o_orderkey_37, orders, o_orderkey)
+INFO:root:Creating index: Index(idx_lineitem_l_orderkey_36, lineitem, l_orderkey)
+INFO:root:Running query: 12 with timeout: 7.867241859436035
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11dc1cd90>, <lambdatune.config_selection.index.Index object at 0x11c1be8b0>, <lambdatune.config_selection.index.Index object at 0x1186878b0>, <lambdatune.config_selection.index.Index object at 0x11dc1cca0>, <lambdatune.config_selection.index.Index object at 0x118687d60>, <lambdatune.config_selection.index.Index object at 0x118687940>, <lambdatune.config_selection.index.Index object at 0x11c281970>, <lambdatune.config_selection.index.Index object at 0x118687cd0>, <lambdatune.config_selection.index.Index object at 0x118687400>}
+INFO:root:Query Indexes: 2
+INFO:root:Running query: 03 with timeout: 7.4996418952941895
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11dc1cd90>, <lambdatune.config_selection.index.Index object at 0x11c1be8b0>, <lambdatune.config_selection.index.Index object at 0x1186878b0>, <lambdatune.config_selection.index.Index object at 0x11dc1cca0>, <lambdatune.config_selection.index.Index object at 0x118687d60>, <lambdatune.config_selection.index.Index object at 0x118687940>, <lambdatune.config_selection.index.Index object at 0x11c281970>, <lambdatune.config_selection.index.Index object at 0x118687cd0>, <lambdatune.config_selection.index.Index object at 0x118687400>}
+INFO:root:Query Indexes: 4
+INFO:root:Creating index: Index(idx_orders_o_custkey_28, orders, o_custkey)
+INFO:root:Creating index: Index(idx_customer_c_custkey_35, customer, c_custkey)
+INFO:root:Running query: 13 with timeout: 7.270618200302124
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11dc1cd90>, <lambdatune.config_selection.index.Index object at 0x11c1be8b0>, <lambdatune.config_selection.index.Index object at 0x1186878b0>, <lambdatune.config_selection.index.Index object at 0x11dc1cca0>, <lambdatune.config_selection.index.Index object at 0x118687d60>, <lambdatune.config_selection.index.Index object at 0x118687940>, <lambdatune.config_selection.index.Index object at 0x11c281970>, <lambdatune.config_selection.index.Index object at 0x118687cd0>, <lambdatune.config_selection.index.Index object at 0x118687400>, <lambdatune.config_selection.index.Index object at 0x118687af0>, <lambdatune.config_selection.index.Index object at 0x118687640>}
+INFO:root:Query Indexes: 3
+INFO:root:Running query: 18 with timeout: 6.811253070831299
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11dc1cd90>, <lambdatune.config_selection.index.Index object at 0x11c1be8b0>, <lambdatune.config_selection.index.Index object at 0x1186878b0>, <lambdatune.config_selection.index.Index object at 0x11dc1cca0>, <lambdatune.config_selection.index.Index object at 0x118687d60>, <lambdatune.config_selection.index.Index object at 0x118687940>, <lambdatune.config_selection.index.Index object at 0x11c281970>, <lambdatune.config_selection.index.Index object at 0x118687cd0>, <lambdatune.config_selection.index.Index object at 0x118687400>, <lambdatune.config_selection.index.Index object at 0x118687af0>, <lambdatune.config_selection.index.Index object at 0x118687640>}
+INFO:root:Query Indexes: 4
+INFO:root:Running query: 22 with timeout: 4.7790610790252686
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11dc1cd90>, <lambdatune.config_selection.index.Index object at 0x11c1be8b0>, <lambdatune.config_selection.index.Index object at 0x1186878b0>, <lambdatune.config_selection.index.Index object at 0x11dc1cca0>, <lambdatune.config_selection.index.Index object at 0x118687d60>, <lambdatune.config_selection.index.Index object at 0x118687940>, <lambdatune.config_selection.index.Index object at 0x11c281970>, <lambdatune.config_selection.index.Index object at 0x118687cd0>, <lambdatune.config_selection.index.Index object at 0x118687400>, <lambdatune.config_selection.index.Index object at 0x118687af0>, <lambdatune.config_selection.index.Index object at 0x118687640>}
+INFO:root:Query Indexes: 2
+INFO:root:Running query: 10 with timeout: 4.740925073623657
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11dc1cd90>, <lambdatune.config_selection.index.Index object at 0x11c1be8b0>, <lambdatune.config_selection.index.Index object at 0x1186878b0>, <lambdatune.config_selection.index.Index object at 0x11dc1cca0>, <lambdatune.config_selection.index.Index object at 0x118687d60>, <lambdatune.config_selection.index.Index object at 0x118687940>, <lambdatune.config_selection.index.Index object at 0x11c281970>, <lambdatune.config_selection.index.Index object at 0x118687cd0>, <lambdatune.config_selection.index.Index object at 0x118687400>, <lambdatune.config_selection.index.Index object at 0x118687af0>, <lambdatune.config_selection.index.Index object at 0x118687640>}
+INFO:root:Query Indexes: 6
+INFO:root:Creating index: Index(idx_customer_c_nationkey_29, customer, c_nationkey)
+INFO:root:Running query: 15 with timeout: 4.571487903594971
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11dc1cd90>, <lambdatune.config_selection.index.Index object at 0x11c1be8b0>, <lambdatune.config_selection.index.Index object at 0x1186878b0>, <lambdatune.config_selection.index.Index object at 0x11dc1cca0>, <lambdatune.config_selection.index.Index object at 0x118687d60>, <lambdatune.config_selection.index.Index object at 0x118687940>, <lambdatune.config_selection.index.Index object at 0x11c281970>, <lambdatune.config_selection.index.Index object at 0x1186877f0>, <lambdatune.config_selection.index.Index object at 0x118687cd0>, <lambdatune.config_selection.index.Index object at 0x118687400>, <lambdatune.config_selection.index.Index object at 0x118687af0>, <lambdatune.config_selection.index.Index object at 0x118687640>}
+INFO:root:Query Indexes: 2
+INFO:root:Creating index: Index(idx_lineitem_l_suppkey_31, lineitem, l_suppkey)
+INFO:root:Running query: 05 with timeout: 2.0921850204467773
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11dc1cd90>, <lambdatune.config_selection.index.Index object at 0x11c1be8b0>, <lambdatune.config_selection.index.Index object at 0x1186878b0>, <lambdatune.config_selection.index.Index object at 0x11dc1cca0>, <lambdatune.config_selection.index.Index object at 0x118687d60>, <lambdatune.config_selection.index.Index object at 0x118687940>, <lambdatune.config_selection.index.Index object at 0x11c281970>, <lambdatune.config_selection.index.Index object at 0x1186877f0>, <lambdatune.config_selection.index.Index object at 0x1186878e0>, <lambdatune.config_selection.index.Index object at 0x118687cd0>, <lambdatune.config_selection.index.Index object at 0x118687400>, <lambdatune.config_selection.index.Index object at 0x118687af0>, <lambdatune.config_selection.index.Index object at 0x118687640>}
+INFO:root:Query Indexes: 10
+INFO:root:Running query: 07 with timeout: 1.9642541408538818
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11dc1cd90>, <lambdatune.config_selection.index.Index object at 0x11c1be8b0>, <lambdatune.config_selection.index.Index object at 0x1186878b0>, <lambdatune.config_selection.index.Index object at 0x11dc1cca0>, <lambdatune.config_selection.index.Index object at 0x118687d60>, <lambdatune.config_selection.index.Index object at 0x118687940>, <lambdatune.config_selection.index.Index object at 0x11c281970>, <lambdatune.config_selection.index.Index object at 0x1186877f0>, <lambdatune.config_selection.index.Index object at 0x1186878e0>, <lambdatune.config_selection.index.Index object at 0x118687cd0>, <lambdatune.config_selection.index.Index object at 0x118687400>, <lambdatune.config_selection.index.Index object at 0x118687af0>, <lambdatune.config_selection.index.Index object at 0x118687640>}
+INFO:root:Query Indexes: 9
+INFO:root:Running query: 21 with timeout: 1.557861089706421
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11dc1cd90>, <lambdatune.config_selection.index.Index object at 0x11c1be8b0>, <lambdatune.config_selection.index.Index object at 0x1186878b0>, <lambdatune.config_selection.index.Index object at 0x11dc1cca0>, <lambdatune.config_selection.index.Index object at 0x118687d60>, <lambdatune.config_selection.index.Index object at 0x118687940>, <lambdatune.config_selection.index.Index object at 0x11c281970>, <lambdatune.config_selection.index.Index object at 0x1186877f0>, <lambdatune.config_selection.index.Index object at 0x1186878e0>, <lambdatune.config_selection.index.Index object at 0x118687cd0>, <lambdatune.config_selection.index.Index object at 0x118687400>, <lambdatune.config_selection.index.Index object at 0x118687af0>, <lambdatune.config_selection.index.Index object at 0x118687640>}
+INFO:root:Query Indexes: 6
+INFO:root:Running query: 09 with timeout: 1.2510690689086914
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11dc1cd90>, <lambdatune.config_selection.index.Index object at 0x11c1be8b0>, <lambdatune.config_selection.index.Index object at 0x1186878b0>, <lambdatune.config_selection.index.Index object at 0x11dc1cca0>, <lambdatune.config_selection.index.Index object at 0x118687d60>, <lambdatune.config_selection.index.Index object at 0x118687940>, <lambdatune.config_selection.index.Index object at 0x11c281970>, <lambdatune.config_selection.index.Index object at 0x1186877f0>, <lambdatune.config_selection.index.Index object at 0x1186878e0>, <lambdatune.config_selection.index.Index object at 0x118687cd0>, <lambdatune.config_selection.index.Index object at 0x118687400>, <lambdatune.config_selection.index.Index object at 0x118687af0>, <lambdatune.config_selection.index.Index object at 0x118687640>}
+INFO:root:Query Indexes: 10
+INFO:root:Creating index: Index(idx_lineitem_l_partkey_38, lineitem, l_partkey)
+INFO:root:Running query: 20 with timeout: 1.1240241527557373
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11dc1cd90>, <lambdatune.config_selection.index.Index object at 0x11c1be8b0>, <lambdatune.config_selection.index.Index object at 0x1186878b0>, <lambdatune.config_selection.index.Index object at 0x11dc1cca0>, <lambdatune.config_selection.index.Index object at 0x118687d60>, <lambdatune.config_selection.index.Index object at 0x118687940>, <lambdatune.config_selection.index.Index object at 0x11c281970>, <lambdatune.config_selection.index.Index object at 0x1186877f0>, <lambdatune.config_selection.index.Index object at 0x1186878e0>, <lambdatune.config_selection.index.Index object at 0x118687cd0>, <lambdatune.config_selection.index.Index object at 0x118687400>, <lambdatune.config_selection.index.Index object at 0x118687af0>, <lambdatune.config_selection.index.Index object at 0x11c1be910>, <lambdatune.config_selection.index.Index object at 0x118687640>}
+INFO:root:Query Indexes: 8
+INFO:root:Running query: 08 with timeout: 0.8121621608734131
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11dc1cd90>, <lambdatune.config_selection.index.Index object at 0x11c1be8b0>, <lambdatune.config_selection.index.Index object at 0x1186878b0>, <lambdatune.config_selection.index.Index object at 0x11dc1cca0>, <lambdatune.config_selection.index.Index object at 0x118687d60>, <lambdatune.config_selection.index.Index object at 0x118687940>, <lambdatune.config_selection.index.Index object at 0x11c281970>, <lambdatune.config_selection.index.Index object at 0x1186877f0>, <lambdatune.config_selection.index.Index object at 0x1186878e0>, <lambdatune.config_selection.index.Index object at 0x118687cd0>, <lambdatune.config_selection.index.Index object at 0x118687400>, <lambdatune.config_selection.index.Index object at 0x118687af0>, <lambdatune.config_selection.index.Index object at 0x11c1be910>, <lambdatune.config_selection.index.Index object at 0x118687640>}
+INFO:root:Query Indexes: 12
+INFO:root:Running query: 14 with timeout: 0.4595322608947754
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11dc1cd90>, <lambdatune.config_selection.index.Index object at 0x11c1be8b0>, <lambdatune.config_selection.index.Index object at 0x1186878b0>, <lambdatune.config_selection.index.Index object at 0x11dc1cca0>, <lambdatune.config_selection.index.Index object at 0x118687d60>, <lambdatune.config_selection.index.Index object at 0x118687940>, <lambdatune.config_selection.index.Index object at 0x11c281970>, <lambdatune.config_selection.index.Index object at 0x1186877f0>, <lambdatune.config_selection.index.Index object at 0x1186878e0>, <lambdatune.config_selection.index.Index object at 0x118687cd0>, <lambdatune.config_selection.index.Index object at 0x118687400>, <lambdatune.config_selection.index.Index object at 0x118687af0>, <lambdatune.config_selection.index.Index object at 0x11c1be910>, <lambdatune.config_selection.index.Index object at 0x118687640>}
+INFO:root:Query Indexes: 2
+INFO:root:Running query: 17 with timeout: 0.333646297454834
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11dc1cd90>, <lambdatune.config_selection.index.Index object at 0x11c1be8b0>, <lambdatune.config_selection.index.Index object at 0x1186878b0>, <lambdatune.config_selection.index.Index object at 0x11dc1cca0>, <lambdatune.config_selection.index.Index object at 0x118687d60>, <lambdatune.config_selection.index.Index object at 0x118687940>, <lambdatune.config_selection.index.Index object at 0x11c281970>, <lambdatune.config_selection.index.Index object at 0x1186877f0>, <lambdatune.config_selection.index.Index object at 0x1186878e0>, <lambdatune.config_selection.index.Index object at 0x118687cd0>, <lambdatune.config_selection.index.Index object at 0x118687400>, <lambdatune.config_selection.index.Index object at 0x118687af0>, <lambdatune.config_selection.index.Index object at 0x11c1be910>, <lambdatune.config_selection.index.Index object at 0x118687640>}
+INFO:root:Query Indexes: 2
+INFO:root:Running query: 19 with timeout: 0.019646406173706055
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11dc1cd90>, <lambdatune.config_selection.index.Index object at 0x11c1be8b0>, <lambdatune.config_selection.index.Index object at 0x1186878b0>, <lambdatune.config_selection.index.Index object at 0x11dc1cca0>, <lambdatune.config_selection.index.Index object at 0x118687d60>, <lambdatune.config_selection.index.Index object at 0x118687940>, <lambdatune.config_selection.index.Index object at 0x11c281970>, <lambdatune.config_selection.index.Index object at 0x1186877f0>, <lambdatune.config_selection.index.Index object at 0x1186878e0>, <lambdatune.config_selection.index.Index object at 0x118687cd0>, <lambdatune.config_selection.index.Index object at 0x118687400>, <lambdatune.config_selection.index.Index object at 0x118687af0>, <lambdatune.config_selection.index.Index object at 0x11c1be910>, <lambdatune.config_selection.index.Index object at 0x118687640>}
+INFO:root:Query Indexes: 2
+INFO:root:Config exceeded timeout
+INFO:root:{
+  "config_id": "config_tpch_tokens_9223372036854775807_0.2_1746590544",
+  "total_query_execution_time": 10.001936435699463,
+  "total_completed_query_execution_time": 9.980353593826294,
+  "best_execution_time": Infinity,
+  "duration_seconds": 27.069331169128418,
+  "start_time": 1746590570.600518,
+  "report_ts": 1746590597.669854,
+  "round_num_indexes_created": 14,
+  "round_index_creation_time": 4.98110818862915,
+  "round_query_execution_time": 10.001936435699463,
+  "round_completed_queries": 21,
+  "round_config_reset_time": 0.007519960403442383,
+  "round_reconfiguration_time": 11.24058485031128,
+  "queries_completed_total": 21,
+  "num_indexes_created_total": 14,
+  "num_indexes_total": 14,
+  "completed": false,
+  "timeout": 10,
+  "alpha": 10,
+  "driver_config": {
+    "allow_in_place_tablespaces": "off",
+    "allow_system_table_mods": "off",
+    "application_name": "",
+    "archive_cleanup_command": "",
+    "archive_command": "(disabled)",
+    "archive_mode": "off",
+    "archive_timeout": "0",
+    "array_nulls": "on",
+    "authentication_timeout": "1min",
+    "autovacuum": "on",
+    "autovacuum_analyze_scale_factor": "0.1",
+    "autovacuum_analyze_threshold": "50",
+    "autovacuum_freeze_max_age": "200000000",
+    "autovacuum_max_workers": "3",
+    "autovacuum_multixact_freeze_max_age": "400000000",
+    "autovacuum_naptime": "1min",
+    "autovacuum_vacuum_cost_delay": "2ms",
+    "autovacuum_vacuum_cost_limit": "-1",
+    "autovacuum_vacuum_insert_scale_factor": "0.2",
+    "autovacuum_vacuum_insert_threshold": "1000",
+    "autovacuum_vacuum_scale_factor": "0.2",
+    "autovacuum_vacuum_threshold": "50",
+    "autovacuum_work_mem": "-1",
+    "backend_flush_after": "0",
+    "backslash_quote": "safe_encoding",
+    "backtrace_functions": "",
+    "bgwriter_delay": "200ms",
+    "bgwriter_flush_after": "0",
+    "bgwriter_lru_maxpages": "100",
+    "bgwriter_lru_multiplier": "2",
+    "block_size": "8192",
+    "bonjour": "off",
+    "bonjour_name": "",
+    "bytea_output": "hex",
+    "check_function_bodies": "on",
+    "checkpoint_completion_target": "0.9",
+    "checkpoint_flush_after": "0",
+    "checkpoint_timeout": "5min",
+    "checkpoint_warning": "30s",
+    "client_connection_check_interval": "0",
+    "client_encoding": "UTF8",
+    "client_min_messages": "notice",
+    "cluster_name": "",
+    "commit_delay": "0",
+    "commit_siblings": "5",
+    "compute_query_id": "auto",
+    "config_file": "/opt/homebrew/var/postgresql@14/postgresql.conf",
+    "constraint_exclusion": "partition",
+    "cpu_index_tuple_cost": "0.005",
+    "cpu_operator_cost": "0.0025",
+    "cpu_tuple_cost": "0.01",
+    "cursor_tuple_fraction": "0.1",
+    "data_checksums": "off",
+    "data_directory": "/opt/homebrew/var/postgresql@14",
+    "data_directory_mode": "0700",
+    "data_sync_retry": "off",
+    "DateStyle": "ISO, MDY",
+    "db_user_namespace": "off",
+    "deadlock_timeout": "1s",
+    "debug_assertions": "off",
+    "debug_discard_caches": "0",
+    "debug_pretty_print": "on",
+    "debug_print_parse": "off",
+    "debug_print_plan": "off",
+    "debug_print_rewritten": "off",
+    "default_statistics_target": "100",
+    "default_table_access_method": "heap",
+    "default_tablespace": "",
+    "default_text_search_config": "pg_catalog.english",
+    "default_toast_compression": "pglz",
+    "default_transaction_deferrable": "off",
+    "default_transaction_isolation": "read committed",
+    "default_transaction_read_only": "off",
+    "dynamic_library_path": "$libdir",
+    "dynamic_shared_memory_type": "posix",
+    "effective_cache_size": "45GB",
+    "effective_io_concurrency": "0",
+    "enable_async_append": "on",
+    "enable_bitmapscan": "on",
+    "enable_gathermerge": "on",
+    "enable_hashagg": "on",
+    "enable_hashjoin": "on",
+    "enable_incremental_sort": "on",
+    "enable_indexonlyscan": "on",
+    "enable_indexscan": "on",
+    "enable_material": "on",
+    "enable_memoize": "on",
+    "enable_mergejoin": "on",
+    "enable_nestloop": "on",
+    "enable_parallel_append": "on",
+    "enable_parallel_hash": "on",
+    "enable_partition_pruning": "on",
+    "enable_partitionwise_aggregate": "off",
+    "enable_partitionwise_join": "off",
+    "enable_seqscan": "on",
+    "enable_sort": "on",
+    "enable_tidscan": "on",
+    "escape_string_warning": "on",
+    "event_source": "PostgreSQL",
+    "exit_on_error": "off",
+    "external_pid_file": "",
+    "extra_float_digits": "1",
+    "force_parallel_mode": "off",
+    "from_collapse_limit": "8",
+    "fsync": "on",
+    "full_page_writes": "on",
+    "geqo": "on",
+    "geqo_effort": "5",
+    "geqo_generations": "0",
+    "geqo_pool_size": "0",
+    "geqo_seed": "0",
+    "geqo_selection_bias": "2",
+    "geqo_threshold": "12",
+    "gin_fuzzy_search_limit": "0",
+    "gin_pending_list_limit": "4MB",
+    "hash_mem_multiplier": "1",
+    "hba_file": "/opt/homebrew/var/postgresql@14/pg_hba.conf",
+    "hot_standby": "on",
+    "hot_standby_feedback": "off",
+    "huge_page_size": "0",
+    "huge_pages": "try",
+    "ident_file": "/opt/homebrew/var/postgresql@14/pg_ident.conf",
+    "idle_in_transaction_session_timeout": "0",
+    "idle_session_timeout": "0",
+    "ignore_checksum_failure": "off",
+    "ignore_invalid_pages": "off",
+    "ignore_system_indexes": "off",
+    "in_hot_standby": "off",
+    "integer_datetimes": "on",
+    "IntervalStyle": "postgres",
+    "jit": "on",
+    "jit_above_cost": "100000",
+    "jit_debugging_support": "off",
+    "jit_dump_bitcode": "off",
+    "jit_expressions": "on",
+    "jit_inline_above_cost": "500000",
+    "jit_optimize_above_cost": "500000",
+    "jit_profiling_support": "off",
+    "jit_provider": "llvmjit",
+    "jit_tuple_deforming": "on",
+    "join_collapse_limit": "8",
+    "krb_caseins_users": "off",
+    "krb_server_keyfile": "FILE:/opt/homebrew/Cellar/postgresql@14/14.17_1/etc/krb5.keytab",
+    "lc_collate": "C",
+    "lc_ctype": "C",
+    "lc_messages": "C",
+    "lc_monetary": "C",
+    "lc_numeric": "C",
+    "lc_time": "C",
+    "listen_addresses": "localhost",
+    "lo_compat_privileges": "off",
+    "local_preload_libraries": "",
+    "lock_timeout": "0",
+    "log_autovacuum_min_duration": "-1",
+    "log_checkpoints": "off",
+    "log_connections": "off",
+    "log_destination": "stderr",
+    "log_directory": "log",
+    "log_disconnections": "off",
+    "log_duration": "off",
+    "log_error_verbosity": "default",
+    "log_executor_stats": "off",
+    "log_file_mode": "0600",
+    "log_filename": "postgresql-%Y-%m-%d_%H%M%S.log",
+    "log_hostname": "off",
+    "log_line_prefix": "%m [%p] ",
+    "log_lock_waits": "off",
+    "log_min_duration_sample": "-1",
+    "log_min_duration_statement": "-1",
+    "log_min_error_statement": "error",
+    "log_min_messages": "warning",
+    "log_parameter_max_length": "-1",
+    "log_parameter_max_length_on_error": "0",
+    "log_parser_stats": "off",
+    "log_planner_stats": "off",
+    "log_recovery_conflict_waits": "off",
+    "log_replication_commands": "off",
+    "log_rotation_age": "1d",
+    "log_rotation_size": "10MB",
+    "log_statement": "none",
+    "log_statement_sample_rate": "1",
+    "log_statement_stats": "off",
+    "log_temp_files": "-1",
+    "log_timezone": "America/Chicago",
+    "log_transaction_sample_rate": "0",
+    "log_truncate_on_rotation": "off",
+    "logging_collector": "off",
+    "logical_decoding_work_mem": "64MB",
+    "maintenance_io_concurrency": "0",
+    "maintenance_work_mem": "2GB",
+    "max_connections": "100",
+    "max_files_per_process": "1000",
+    "max_function_args": "100",
+    "max_identifier_length": "63",
+    "max_index_keys": "32",
+    "max_locks_per_transaction": "64",
+    "max_logical_replication_workers": "4",
+    "max_parallel_maintenance_workers": "2",
+    "max_parallel_workers": "8",
+    "max_parallel_workers_per_gather": "4",
+    "max_pred_locks_per_page": "2",
+    "max_pred_locks_per_relation": "-2",
+    "max_pred_locks_per_transaction": "64",
+    "max_prepared_transactions": "0",
+    "max_replication_slots": "10",
+    "max_slot_wal_keep_size": "-1",
+    "max_stack_depth": "2MB",
+    "max_standby_archive_delay": "30s",
+    "max_standby_streaming_delay": "30s",
+    "max_sync_workers_per_subscription": "2",
+    "max_wal_senders": "10",
+    "max_wal_size": "1GB",
+    "max_worker_processes": "8",
+    "min_dynamic_shared_memory": "0",
+    "min_parallel_index_scan_size": "512kB",
+    "min_parallel_table_scan_size": "8MB",
+    "min_wal_size": "80MB",
+    "old_snapshot_threshold": "-1",
+    "parallel_leader_participation": "on",
+    "parallel_setup_cost": "1000",
+    "parallel_tuple_cost": "0.1",
+    "password_encryption": "scram-sha-256",
+    "plan_cache_mode": "auto",
+    "port": "5432",
+    "post_auth_delay": "0",
+    "pre_auth_delay": "0",
+    "primary_conninfo": "",
+    "primary_slot_name": "",
+    "promote_trigger_file": "",
+    "quote_all_identifiers": "off",
+    "random_page_cost": "1.1",
+    "recovery_end_command": "",
+    "recovery_init_sync_method": "fsync",
+    "recovery_min_apply_delay": "0",
+    "recovery_target": "",
+    "recovery_target_action": "pause",
+    "recovery_target_inclusive": "on",
+    "recovery_target_lsn": "",
+    "recovery_target_name": "",
+    "recovery_target_time": "",
+    "recovery_target_timeline": "latest",
+    "recovery_target_xid": "",
+    "remove_temp_files_after_crash": "on",
+    "restart_after_crash": "on",
+    "restore_command": "",
+    "restrict_nonsystem_relation_kind": "",
+    "row_security": "on",
+    "search_path": "\"$user\", public",
+    "segment_size": "1GB",
+    "seq_page_cost": "1",
+    "server_encoding": "UTF8",
+    "server_version": "14.17 (Homebrew)",
+    "server_version_num": "140017",
+    "session_preload_libraries": "",
+    "session_replication_role": "origin",
+    "shared_buffers": "15GB",
+    "shared_memory_type": "mmap",
+    "shared_preload_libraries": "",
+    "ssl": "off",
+    "ssl_ca_file": "",
+    "ssl_cert_file": "server.crt",
+    "ssl_ciphers": "HIGH:MEDIUM:+3DES:!aNULL",
+    "ssl_crl_dir": "",
+    "ssl_crl_file": "",
+    "ssl_dh_params_file": "",
+    "ssl_ecdh_curve": "prime256v1",
+    "ssl_key_file": "server.key",
+    "ssl_library": "OpenSSL",
+    "ssl_max_protocol_version": "",
+    "ssl_min_protocol_version": "TLSv1.2",
+    "ssl_passphrase_command": "",
+    "ssl_passphrase_command_supports_reload": "off",
+    "ssl_prefer_server_ciphers": "on",
+    "standard_conforming_strings": "on",
+    "statement_timeout": "0",
+    "stats_temp_directory": "pg_stat_tmp",
+    "superuser_reserved_connections": "3",
+    "synchronize_seqscans": "on",
+    "synchronous_commit": "on",
+    "synchronous_standby_names": "",
+    "syslog_facility": "local0",
+    "syslog_ident": "postgres",
+    "syslog_sequence_numbers": "on",
+    "syslog_split_messages": "on",
+    "tcp_keepalives_count": "8",
+    "tcp_keepalives_idle": "7200",
+    "tcp_keepalives_interval": "75",
+    "tcp_user_timeout": "0",
+    "temp_buffers": "8MB",
+    "temp_file_limit": "-1",
+    "temp_tablespaces": "",
+    "TimeZone": "America/Chicago",
+    "timezone_abbreviations": "Default",
+    "trace_notify": "off",
+    "trace_recovery_messages": "log",
+    "trace_sort": "off",
+    "track_activities": "on",
+    "track_activity_query_size": "1kB",
+    "track_commit_timestamp": "off",
+    "track_counts": "on",
+    "track_functions": "none",
+    "track_io_timing": "off",
+    "track_wal_io_timing": "off",
+    "transaction_deferrable": "off",
+    "transaction_isolation": "read committed",
+    "transaction_read_only": "off",
+    "transform_null_equals": "off",
+    "unix_socket_directories": "/tmp",
+    "unix_socket_group": "",
+    "unix_socket_permissions": "0777",
+    "update_process_title": "on",
+    "vacuum_cost_delay": "0",
+    "vacuum_cost_limit": "200",
+    "vacuum_cost_page_dirty": "20",
+    "vacuum_cost_page_hit": "1",
+    "vacuum_cost_page_miss": "2",
+    "vacuum_defer_cleanup_age": "0",
+    "vacuum_failsafe_age": "1600000000",
+    "vacuum_freeze_min_age": "50000000",
+    "vacuum_freeze_table_age": "150000000",
+    "vacuum_multixact_failsafe_age": "1600000000",
+    "vacuum_multixact_freeze_min_age": "5000000",
+    "vacuum_multixact_freeze_table_age": "150000000",
+    "wal_block_size": "8192",
+    "wal_buffers": "16MB",
+    "wal_compression": "off",
+    "wal_consistency_checking": "",
+    "wal_init_zero": "on",
+    "wal_keep_size": "0",
+    "wal_level": "replica",
+    "wal_log_hints": "off",
+    "wal_receiver_create_temp_slot": "off",
+    "wal_receiver_status_interval": "10s",
+    "wal_receiver_timeout": "1min",
+    "wal_recycle": "on",
+    "wal_retrieve_retry_interval": "5s",
+    "wal_segment_size": "16MB",
+    "wal_sender_timeout": "1min",
+    "wal_skip_threshold": "2MB",
+    "wal_sync_method": "open_datasync",
+    "wal_writer_delay": "200ms",
+    "wal_writer_flush_after": "1MB",
+    "work_mem": "1GB",
+    "xmlbinary": "base64",
+    "xmloption": "content",
+    "zero_damaged_pages": "off"
+  },
+  "lambda_tune_config": [
+    "ALTER SYSTEM SET effective_io_concurrency = 200;",
+    "ALTER SYSTEM SET random_page_cost = 1.1;",
+    "ALTER SYSTEM SET max_parallel_workers_per_gather = 4;",
+    "ALTER SYSTEM SET shared_buffers = '15GB';",
+    "ALTER SYSTEM SET work_mem = '1GB';",
+    "ALTER SYSTEM SET max_parallel_workers = 8;",
+    "ALTER SYSTEM SET maintenance_work_mem = '2GB';",
+    "ALTER SYSTEM SET effective_cache_size = '45GB';"
+  ],
+  "created_indexes": [
+    "idx_partsupp_ps_partkey_30",
+    "idx_supplier_s_suppkey_39",
+    "idx_partsupp_ps_suppkey_40",
+    "idx_part_p_partkey_34",
+    "idx_supplier_s_nationkey_33",
+    "idx_nation_n_regionkey_41",
+    "idx_nation_n_nationkey_32",
+    "idx_orders_o_orderkey_37",
+    "idx_lineitem_l_orderkey_36",
+    "idx_orders_o_custkey_28",
+    "idx_customer_c_custkey_35",
+    "idx_customer_c_nationkey_29",
+    "idx_lineitem_l_suppkey_31",
+    "idx_lineitem_l_partkey_38"
+  ],
+  "round_completed_query_times": {
+    "01": 1.7335190773010254,
+    "06": 0.12454605102539062,
+    "16": 0.0850682258605957,
+    "02": 0.09694695472717285,
+    "11": 0.035449981689453125,
+    "04": 0.05722784996032715,
+    "12": 0.3675999641418457,
+    "03": 0.22902369499206543,
+    "13": 0.4593651294708252,
+    "18": 2.0321919918060303,
+    "22": 0.03813600540161133,
+    "10": 0.16943717002868652,
+    "15": 2.4793028831481934,
+    "05": 0.1279308795928955,
+    "07": 0.40639305114746094,
+    "21": 0.3067920207977295,
+    "09": 0.1270449161529541,
+    "20": 0.3118619918823242,
+    "08": 0.3526298999786377,
+    "14": 0.1258859634399414,
+    "17": 0.31399989128112793
+  }
+}
+INFO:root:Resetting configuration
+INFO:root:Dropping index: idx_partsupp_ps_partkey_30
+INFO:root:Dropping index: idx_supplier_s_suppkey_39
+INFO:root:Dropping index: idx_partsupp_ps_suppkey_40
+INFO:root:Dropping index: idx_part_p_partkey_34
+INFO:root:Dropping index: idx_supplier_s_nationkey_33
+INFO:root:Dropping index: idx_nation_n_regionkey_41
+INFO:root:Dropping index: idx_nation_n_nationkey_32
+INFO:root:Dropping index: idx_orders_o_orderkey_37
+INFO:root:Dropping index: idx_lineitem_l_orderkey_36
+INFO:root:Dropping index: idx_orders_o_custkey_28
+INFO:root:Dropping index: idx_customer_c_custkey_35
+INFO:root:Dropping index: idx_customer_c_nationkey_29
+INFO:root:Dropping index: idx_lineitem_l_suppkey_31
+INFO:root:Dropping index: idx_lineitem_l_partkey_38
+INFO:root:Resetting Postgres configuration
+INFO:root:Connected to Postgres
+INFO:root:Done!
+DEBUG:root:Resetting config took: 0.07082891464233398
+INFO:root:Resetting Postgres
+INFO:root:Setting config: ALTER SYSTEM SET effective_io_concurrency = 200;
+INFO:root:Setting config: ALTER SYSTEM SET random_page_cost = 1.1;
+INFO:root:Setting config: ALTER SYSTEM SET max_parallel_workers_per_gather = 4;
+INFO:root:Setting config: ALTER SYSTEM SET shared_buffers = '15GB';
+INFO:root:Setting config: ALTER SYSTEM SET work_mem = '1GB';
+INFO:root:Setting config: ALTER SYSTEM SET max_parallel_workers = 8;
+INFO:root:Setting config: ALTER SYSTEM SET maintenance_work_mem = '2GB';
+INFO:root:Setting config: ALTER SYSTEM SET effective_cache_size = '45GB';
+INFO:root:Restarting Postgres
+INFO:root:Done!
+INFO:root:waiting 5 secs...
+INFO:root:Connected to Postgres
+INFO:root:Done!
+INFO:root:Trying config: config_tpch_tokens_9223372036854775807_0.2_1746590556
+DEBUG:root:Clusters:
+DEBUG:root:Cluster 0 (size: 4):
+DEBUG:root:[0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1]
+DEBUG:root:[0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1]
+DEBUG:root:[0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1]
+DEBUG:root:[0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1]
+DEBUG:root:Cluster 1 (size: 1):
+DEBUG:root:[0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0]
+DEBUG:root:Cluster 2 (size: 1):
+DEBUG:root:[0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0]
+DEBUG:root:Cluster 3 (size: 3):
+DEBUG:root:[1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
+DEBUG:root:[1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
+DEBUG:root:[1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
+DEBUG:root:Cluster 4 (size: 3):
+DEBUG:root:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+DEBUG:root:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+DEBUG:root:[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
+DEBUG:root:Cluster 5 (size: 1):
+DEBUG:root:[1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+DEBUG:root:Cluster 6 (size: 1):
+DEBUG:root:[1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+DEBUG:root:Cluster 7 (size: 1):
+DEBUG:root:[1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0]
+DEBUG:root:Cluster 8 (size: 2):
+DEBUG:root:[0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1]
+DEBUG:root:[0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1]
+DEBUG:root:Cluster 9 (size: 1):
+DEBUG:root:[0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1]
+DEBUG:root:Cluster 10 (size: 2):
+DEBUG:root:[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0]
+DEBUG:root:[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0]
+DEBUG:root:Cluster 11 (size: 1):
+DEBUG:root:[1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0]
+DEBUG:root:Cluster 12 (size: 1):
+DEBUG:root:[1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0]
+DEBUG:root:#Subsets: 78
+DEBUG:root:Finished with subset of size: 2
+DEBUG:root:#Subsets: 286
+DEBUG:root:Finished with subset of size: 3
+DEBUG:root:#Subsets: 715
+DEBUG:root:Finished with subset of size: 4
+DEBUG:root:#Subsets: 1287
+DEBUG:root:Finished with subset of size: 5
+DEBUG:root:#Subsets: 1716
+DEBUG:root:Finished with subset of size: 6
+DEBUG:root:#Subsets: 1716
+DEBUG:root:Finished with subset of size: 7
+DEBUG:root:#Subsets: 1287
+DEBUG:root:Finished with subset of size: 8
+DEBUG:root:#Subsets: 715
+DEBUG:root:Finished with subset of size: 9
+DEBUG:root:#Subsets: 286
+DEBUG:root:Finished with subset of size: 10
+DEBUG:root:#Subsets: 78
+DEBUG:root:Finished with subset of size: 11
+DEBUG:root:#Subsets: 13
+DEBUG:root:Finished with subset of size: 12
+DEBUG:root:#Subsets: 1
+DEBUG:root:Finished with subset of size: 13
+DEBUG:root:Cluster: 1, #Indexes: ['Index(idx_partsupp_ps_partkey_2, partsupp, ps_partkey)', 'Index(idx_nation_n_nationkey_4, nation, n_nationkey)', 'Index(idx_supplier_s_nationkey_5, supplier, s_nationkey)', 'Index(idx_partsupp_ps_suppkey_12, partsupp, ps_suppkey)', 'Index(idx_supplier_s_suppkey_11, supplier, s_suppkey)'], Queries: ['11']
+DEBUG:root:Cluster: 5, #Indexes: ['Index(idx_part_p_partkey_6, part, p_partkey)', 'Index(idx_partsupp_ps_suppkey_12, partsupp, ps_suppkey)', 'Index(idx_partsupp_ps_partkey_2, partsupp, ps_partkey)', 'Index(idx_supplier_s_suppkey_11, supplier, s_suppkey)'], Queries: ['16']
+DEBUG:root:Cluster: 12, #Indexes: ['Index(idx_part_p_partkey_6, part, p_partkey)', 'Index(idx_partsupp_ps_partkey_2, partsupp, ps_partkey)', 'Index(idx_nation_n_regionkey_13, nation, n_regionkey)', 'Index(idx_supplier_s_nationkey_5, supplier, s_nationkey)', 'Index(idx_nation_n_nationkey_4, nation, n_nationkey)', 'Index(idx_partsupp_ps_suppkey_12, partsupp, ps_suppkey)', 'Index(idx_supplier_s_suppkey_11, supplier, s_suppkey)'], Queries: ['02']
+DEBUG:root:Cluster: 10, #Indexes: ['Index(idx_lineitem_l_orderkey_8, lineitem, l_orderkey)', 'Index(idx_orders_o_orderkey_9, orders, o_orderkey)'], Queries: ['04', '12']
+DEBUG:root:Cluster: 0, #Indexes: ['Index(idx_orders_o_custkey_0, orders, o_custkey)', 'Index(idx_lineitem_l_orderkey_8, lineitem, l_orderkey)', 'Index(idx_orders_o_orderkey_9, orders, o_orderkey)', 'Index(idx_customer_c_custkey_7, customer, c_custkey)'], Queries: ['03', '13', '18', '22']
+DEBUG:root:Cluster: 9, #Indexes: ['Index(idx_customer_c_nationkey_1, customer, c_nationkey)', 'Index(idx_nation_n_nationkey_4, nation, n_nationkey)', 'Index(idx_orders_o_custkey_0, orders, o_custkey)', 'Index(idx_lineitem_l_orderkey_8, lineitem, l_orderkey)', 'Index(idx_orders_o_orderkey_9, orders, o_orderkey)', 'Index(idx_customer_c_custkey_7, customer, c_custkey)'], Queries: ['10']
+DEBUG:root:Cluster: 8, #Indexes: ['Index(idx_lineitem_l_orderkey_8, lineitem, l_orderkey)', 'Index(idx_lineitem_l_suppkey_3, lineitem, l_suppkey)', 'Index(idx_supplier_s_suppkey_11, supplier, s_suppkey)', 'Index(idx_nation_n_nationkey_4, nation, n_nationkey)', 'Index(idx_supplier_s_nationkey_5, supplier, s_nationkey)', 'Index(idx_orders_o_custkey_0, orders, o_custkey)', 'Index(idx_customer_c_nationkey_1, customer, c_nationkey)', 'Index(idx_nation_n_regionkey_13, nation, n_regionkey)', 'Index(idx_orders_o_orderkey_9, orders, o_orderkey)', 'Index(idx_customer_c_custkey_7, customer, c_custkey)'], Queries: ['05', '07']
+DEBUG:root:Cluster: 4, #Indexes: ['Index(idx_lineitem_l_suppkey_3, lineitem, l_suppkey)', 'Index(idx_supplier_s_suppkey_11, supplier, s_suppkey)'], Queries: ['01', '06', '15']
+DEBUG:root:Cluster: 2, #Indexes: ['Index(idx_nation_n_nationkey_4, nation, n_nationkey)', 'Index(idx_supplier_s_nationkey_5, supplier, s_nationkey)', 'Index(idx_lineitem_l_orderkey_8, lineitem, l_orderkey)', 'Index(idx_lineitem_l_suppkey_3, lineitem, l_suppkey)', 'Index(idx_orders_o_orderkey_9, orders, o_orderkey)', 'Index(idx_supplier_s_suppkey_11, supplier, s_suppkey)'], Queries: ['21']
+DEBUG:root:Cluster: 11, #Indexes: ['Index(idx_part_p_partkey_6, part, p_partkey)', 'Index(idx_lineitem_l_orderkey_8, lineitem, l_orderkey)', 'Index(idx_partsupp_ps_suppkey_12, partsupp, ps_suppkey)', 'Index(idx_lineitem_l_partkey_10, lineitem, l_partkey)', 'Index(idx_lineitem_l_suppkey_3, lineitem, l_suppkey)', 'Index(idx_supplier_s_suppkey_11, supplier, s_suppkey)', 'Index(idx_partsupp_ps_partkey_2, partsupp, ps_partkey)', 'Index(idx_nation_n_nationkey_4, nation, n_nationkey)', 'Index(idx_supplier_s_nationkey_5, supplier, s_nationkey)', 'Index(idx_orders_o_orderkey_9, orders, o_orderkey)'], Queries: ['09']
+DEBUG:root:Cluster: 7, #Indexes: ['Index(idx_part_p_partkey_6, part, p_partkey)', 'Index(idx_partsupp_ps_suppkey_12, partsupp, ps_suppkey)', 'Index(idx_lineitem_l_partkey_10, lineitem, l_partkey)', 'Index(idx_lineitem_l_suppkey_3, lineitem, l_suppkey)', 'Index(idx_supplier_s_suppkey_11, supplier, s_suppkey)', 'Index(idx_partsupp_ps_partkey_2, partsupp, ps_partkey)', 'Index(idx_nation_n_nationkey_4, nation, n_nationkey)', 'Index(idx_supplier_s_nationkey_5, supplier, s_nationkey)'], Queries: ['20']
+DEBUG:root:Cluster: 6, #Indexes: ['Index(idx_part_p_partkey_6, part, p_partkey)', 'Index(idx_orders_o_custkey_0, orders, o_custkey)', 'Index(idx_lineitem_l_orderkey_8, lineitem, l_orderkey)', 'Index(idx_lineitem_l_partkey_10, lineitem, l_partkey)', 'Index(idx_lineitem_l_suppkey_3, lineitem, l_suppkey)', 'Index(idx_supplier_s_suppkey_11, supplier, s_suppkey)', 'Index(idx_customer_c_nationkey_1, customer, c_nationkey)', 'Index(idx_nation_n_regionkey_13, nation, n_regionkey)', 'Index(idx_supplier_s_nationkey_5, supplier, s_nationkey)', 'Index(idx_nation_n_nationkey_4, nation, n_nationkey)', 'Index(idx_orders_o_orderkey_9, orders, o_orderkey)', 'Index(idx_customer_c_custkey_7, customer, c_custkey)'], Queries: ['08']
+DEBUG:root:Cluster: 3, #Indexes: ['Index(idx_part_p_partkey_6, part, p_partkey)', 'Index(idx_lineitem_l_partkey_10, lineitem, l_partkey)'], Queries: ['14', '17', '19']
+INFO:root:Running query: 11 with timeout: 10
+INFO:root:Created Indexes: set()
+INFO:root:Query Indexes: 5
+INFO:root:Creating index: Index(idx_partsupp_ps_suppkey_12, partsupp, ps_suppkey)
+INFO:root:Creating index: Index(idx_supplier_s_suppkey_11, supplier, s_suppkey)
+INFO:root:Creating index: Index(idx_partsupp_ps_partkey_2, partsupp, ps_partkey)
+INFO:root:Creating index: Index(idx_nation_n_nationkey_4, nation, n_nationkey)
+INFO:root:Creating index: Index(idx_supplier_s_nationkey_5, supplier, s_nationkey)
+INFO:root:Running query: 16 with timeout: 9.957587003707886
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x150328670>, <lambdatune.config_selection.index.Index object at 0x1503286d0>, <lambdatune.config_selection.index.Index object at 0x150328790>, <lambdatune.config_selection.index.Index object at 0x150328a90>, <lambdatune.config_selection.index.Index object at 0x150328910>}
+INFO:root:Query Indexes: 4
+INFO:root:Creating index: Index(idx_part_p_partkey_6, part, p_partkey)
+INFO:root:Running query: 02 with timeout: 9.878035068511963
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x150328520>, <lambdatune.config_selection.index.Index object at 0x150328670>, <lambdatune.config_selection.index.Index object at 0x1503286d0>, <lambdatune.config_selection.index.Index object at 0x150328790>, <lambdatune.config_selection.index.Index object at 0x150328a90>, <lambdatune.config_selection.index.Index object at 0x150328910>}
+INFO:root:Query Indexes: 7
+INFO:root:Creating index: Index(idx_nation_n_regionkey_13, nation, n_regionkey)
+INFO:root:Running query: 04 with timeout: 9.783399105072021
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x150328520>, <lambdatune.config_selection.index.Index object at 0x150328670>, <lambdatune.config_selection.index.Index object at 0x1503286d0>, <lambdatune.config_selection.index.Index object at 0x150328790>, <lambdatune.config_selection.index.Index object at 0x150328a90>, <lambdatune.config_selection.index.Index object at 0x150328910>, <lambdatune.config_selection.index.Index object at 0x150328610>}
+INFO:root:Query Indexes: 2
+INFO:root:Creating index: Index(idx_lineitem_l_orderkey_8, lineitem, l_orderkey)
+INFO:root:Creating index: Index(idx_orders_o_orderkey_9, orders, o_orderkey)
+INFO:root:Running query: 12 with timeout: 9.717844247817993
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x150328520>, <lambdatune.config_selection.index.Index object at 0x150328a30>, <lambdatune.config_selection.index.Index object at 0x150328670>, <lambdatune.config_selection.index.Index object at 0x1503286d0>, <lambdatune.config_selection.index.Index object at 0x150328790>, <lambdatune.config_selection.index.Index object at 0x150328a90>, <lambdatune.config_selection.index.Index object at 0x150328910>, <lambdatune.config_selection.index.Index object at 0x150328610>, <lambdatune.config_selection.index.Index object at 0x1503288b0>}
+INFO:root:Query Indexes: 2
+INFO:root:Running query: 03 with timeout: 9.38155221939087
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x150328520>, <lambdatune.config_selection.index.Index object at 0x150328a30>, <lambdatune.config_selection.index.Index object at 0x150328670>, <lambdatune.config_selection.index.Index object at 0x1503286d0>, <lambdatune.config_selection.index.Index object at 0x150328790>, <lambdatune.config_selection.index.Index object at 0x150328a90>, <lambdatune.config_selection.index.Index object at 0x150328910>, <lambdatune.config_selection.index.Index object at 0x150328610>, <lambdatune.config_selection.index.Index object at 0x1503288b0>}
+INFO:root:Query Indexes: 4
+INFO:root:Creating index: Index(idx_orders_o_custkey_0, orders, o_custkey)
+INFO:root:Creating index: Index(idx_customer_c_custkey_7, customer, c_custkey)
+INFO:root:Running query: 13 with timeout: 9.056259155273438
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x150328520>, <lambdatune.config_selection.index.Index object at 0x150328a30>, <lambdatune.config_selection.index.Index object at 0x150328670>, <lambdatune.config_selection.index.Index object at 0x150328850>, <lambdatune.config_selection.index.Index object at 0x1503286d0>, <lambdatune.config_selection.index.Index object at 0x150328790>, <lambdatune.config_selection.index.Index object at 0x150328a90>, <lambdatune.config_selection.index.Index object at 0x150328910>, <lambdatune.config_selection.index.Index object at 0x150328610>, <lambdatune.config_selection.index.Index object at 0x1503288b0>, <lambdatune.config_selection.index.Index object at 0x1503289d0>}
+INFO:root:Query Indexes: 3
+INFO:root:Running query: 18 with timeout: 8.513211011886597
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x150328520>, <lambdatune.config_selection.index.Index object at 0x150328a30>, <lambdatune.config_selection.index.Index object at 0x150328670>, <lambdatune.config_selection.index.Index object at 0x150328850>, <lambdatune.config_selection.index.Index object at 0x1503286d0>, <lambdatune.config_selection.index.Index object at 0x150328790>, <lambdatune.config_selection.index.Index object at 0x150328a90>, <lambdatune.config_selection.index.Index object at 0x150328910>, <lambdatune.config_selection.index.Index object at 0x150328610>, <lambdatune.config_selection.index.Index object at 0x1503288b0>, <lambdatune.config_selection.index.Index object at 0x1503289d0>}
+INFO:root:Query Indexes: 4
+INFO:root:Running query: 22 with timeout: 6.137498140335083
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x150328520>, <lambdatune.config_selection.index.Index object at 0x150328a30>, <lambdatune.config_selection.index.Index object at 0x150328670>, <lambdatune.config_selection.index.Index object at 0x150328850>, <lambdatune.config_selection.index.Index object at 0x1503286d0>, <lambdatune.config_selection.index.Index object at 0x150328790>, <lambdatune.config_selection.index.Index object at 0x150328a90>, <lambdatune.config_selection.index.Index object at 0x150328910>, <lambdatune.config_selection.index.Index object at 0x150328610>, <lambdatune.config_selection.index.Index object at 0x1503288b0>, <lambdatune.config_selection.index.Index object at 0x1503289d0>}
+INFO:root:Query Indexes: 2
+INFO:root:Running query: 10 with timeout: 6.099260091781616
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x150328520>, <lambdatune.config_selection.index.Index object at 0x150328a30>, <lambdatune.config_selection.index.Index object at 0x150328670>, <lambdatune.config_selection.index.Index object at 0x150328850>, <lambdatune.config_selection.index.Index object at 0x1503286d0>, <lambdatune.config_selection.index.Index object at 0x150328790>, <lambdatune.config_selection.index.Index object at 0x150328a90>, <lambdatune.config_selection.index.Index object at 0x150328910>, <lambdatune.config_selection.index.Index object at 0x150328610>, <lambdatune.config_selection.index.Index object at 0x1503288b0>, <lambdatune.config_selection.index.Index object at 0x1503289d0>}
+INFO:root:Query Indexes: 6
+INFO:root:Creating index: Index(idx_customer_c_nationkey_1, customer, c_nationkey)
+INFO:root:Running query: 05 with timeout: 5.962023735046387
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x150328520>, <lambdatune.config_selection.index.Index object at 0x150328a30>, <lambdatune.config_selection.index.Index object at 0x150328670>, <lambdatune.config_selection.index.Index object at 0x150328850>, <lambdatune.config_selection.index.Index object at 0x1503286d0>, <lambdatune.config_selection.index.Index object at 0x1503287f0>, <lambdatune.config_selection.index.Index object at 0x150328790>, <lambdatune.config_selection.index.Index object at 0x150328a90>, <lambdatune.config_selection.index.Index object at 0x150328910>, <lambdatune.config_selection.index.Index object at 0x150328610>, <lambdatune.config_selection.index.Index object at 0x1503288b0>, <lambdatune.config_selection.index.Index object at 0x1503289d0>}
+INFO:root:Query Indexes: 10
+INFO:root:Creating index: Index(idx_lineitem_l_suppkey_3, lineitem, l_suppkey)
+INFO:root:Running query: 07 with timeout: 5.832578659057617
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x150328520>, <lambdatune.config_selection.index.Index object at 0x150328a30>, <lambdatune.config_selection.index.Index object at 0x150328670>, <lambdatune.config_selection.index.Index object at 0x150328850>, <lambdatune.config_selection.index.Index object at 0x150328970>, <lambdatune.config_selection.index.Index object at 0x1503286d0>, <lambdatune.config_selection.index.Index object at 0x1503287f0>, <lambdatune.config_selection.index.Index object at 0x150328790>, <lambdatune.config_selection.index.Index object at 0x150328a90>, <lambdatune.config_selection.index.Index object at 0x150328910>, <lambdatune.config_selection.index.Index object at 0x150328610>, <lambdatune.config_selection.index.Index object at 0x1503288b0>, <lambdatune.config_selection.index.Index object at 0x1503289d0>}
+INFO:root:Query Indexes: 9
+INFO:root:Running query: 01 with timeout: 5.464366674423218
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x150328520>, <lambdatune.config_selection.index.Index object at 0x150328a30>, <lambdatune.config_selection.index.Index object at 0x150328670>, <lambdatune.config_selection.index.Index object at 0x150328850>, <lambdatune.config_selection.index.Index object at 0x150328970>, <lambdatune.config_selection.index.Index object at 0x1503286d0>, <lambdatune.config_selection.index.Index object at 0x1503287f0>, <lambdatune.config_selection.index.Index object at 0x150328790>, <lambdatune.config_selection.index.Index object at 0x150328a90>, <lambdatune.config_selection.index.Index object at 0x150328910>, <lambdatune.config_selection.index.Index object at 0x150328610>, <lambdatune.config_selection.index.Index object at 0x1503288b0>, <lambdatune.config_selection.index.Index object at 0x1503289d0>}
+INFO:root:Query Indexes: 0
+INFO:root:Running query: 06 with timeout: 4.755735635757446
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x150328520>, <lambdatune.config_selection.index.Index object at 0x150328a30>, <lambdatune.config_selection.index.Index object at 0x150328670>, <lambdatune.config_selection.index.Index object at 0x150328850>, <lambdatune.config_selection.index.Index object at 0x150328970>, <lambdatune.config_selection.index.Index object at 0x1503286d0>, <lambdatune.config_selection.index.Index object at 0x1503287f0>, <lambdatune.config_selection.index.Index object at 0x150328790>, <lambdatune.config_selection.index.Index object at 0x150328a90>, <lambdatune.config_selection.index.Index object at 0x150328910>, <lambdatune.config_selection.index.Index object at 0x150328610>, <lambdatune.config_selection.index.Index object at 0x1503288b0>, <lambdatune.config_selection.index.Index object at 0x1503289d0>}
+INFO:root:Query Indexes: 0
+INFO:root:Running query: 15 with timeout: 4.63738751411438
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x150328520>, <lambdatune.config_selection.index.Index object at 0x150328a30>, <lambdatune.config_selection.index.Index object at 0x150328670>, <lambdatune.config_selection.index.Index object at 0x150328850>, <lambdatune.config_selection.index.Index object at 0x150328970>, <lambdatune.config_selection.index.Index object at 0x1503286d0>, <lambdatune.config_selection.index.Index object at 0x1503287f0>, <lambdatune.config_selection.index.Index object at 0x150328790>, <lambdatune.config_selection.index.Index object at 0x150328a90>, <lambdatune.config_selection.index.Index object at 0x150328910>, <lambdatune.config_selection.index.Index object at 0x150328610>, <lambdatune.config_selection.index.Index object at 0x1503288b0>, <lambdatune.config_selection.index.Index object at 0x1503289d0>}
+INFO:root:Query Indexes: 2
+INFO:root:Running query: 21 with timeout: 2.172445297241211
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x150328520>, <lambdatune.config_selection.index.Index object at 0x150328a30>, <lambdatune.config_selection.index.Index object at 0x150328670>, <lambdatune.config_selection.index.Index object at 0x150328850>, <lambdatune.config_selection.index.Index object at 0x150328970>, <lambdatune.config_selection.index.Index object at 0x1503286d0>, <lambdatune.config_selection.index.Index object at 0x1503287f0>, <lambdatune.config_selection.index.Index object at 0x150328790>, <lambdatune.config_selection.index.Index object at 0x150328a90>, <lambdatune.config_selection.index.Index object at 0x150328910>, <lambdatune.config_selection.index.Index object at 0x150328610>, <lambdatune.config_selection.index.Index object at 0x1503288b0>, <lambdatune.config_selection.index.Index object at 0x1503289d0>}
+INFO:root:Query Indexes: 6
+INFO:root:Running query: 09 with timeout: 1.857163429260254
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x150328520>, <lambdatune.config_selection.index.Index object at 0x150328a30>, <lambdatune.config_selection.index.Index object at 0x150328670>, <lambdatune.config_selection.index.Index object at 0x150328850>, <lambdatune.config_selection.index.Index object at 0x150328970>, <lambdatune.config_selection.index.Index object at 0x1503286d0>, <lambdatune.config_selection.index.Index object at 0x1503287f0>, <lambdatune.config_selection.index.Index object at 0x150328790>, <lambdatune.config_selection.index.Index object at 0x150328a90>, <lambdatune.config_selection.index.Index object at 0x150328910>, <lambdatune.config_selection.index.Index object at 0x150328610>, <lambdatune.config_selection.index.Index object at 0x1503288b0>, <lambdatune.config_selection.index.Index object at 0x1503289d0>}
+INFO:root:Query Indexes: 10
+INFO:root:Creating index: Index(idx_lineitem_l_partkey_10, lineitem, l_partkey)
+INFO:root:Running query: 20 with timeout: 1.726475477218628
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x150328520>, <lambdatune.config_selection.index.Index object at 0x150328a30>, <lambdatune.config_selection.index.Index object at 0x150328670>, <lambdatune.config_selection.index.Index object at 0x150328850>, <lambdatune.config_selection.index.Index object at 0x150328970>, <lambdatune.config_selection.index.Index object at 0x150328730>, <lambdatune.config_selection.index.Index object at 0x1503286d0>, <lambdatune.config_selection.index.Index object at 0x1503287f0>, <lambdatune.config_selection.index.Index object at 0x150328790>, <lambdatune.config_selection.index.Index object at 0x150328a90>, <lambdatune.config_selection.index.Index object at 0x150328910>, <lambdatune.config_selection.index.Index object at 0x150328610>, <lambdatune.config_selection.index.Index object at 0x1503288b0>, <lambdatune.config_selection.index.Index object at 0x1503289d0>}
+INFO:root:Query Indexes: 8
+INFO:root:Running query: 08 with timeout: 1.372633695602417
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x150328520>, <lambdatune.config_selection.index.Index object at 0x150328a30>, <lambdatune.config_selection.index.Index object at 0x150328670>, <lambdatune.config_selection.index.Index object at 0x150328850>, <lambdatune.config_selection.index.Index object at 0x150328970>, <lambdatune.config_selection.index.Index object at 0x150328730>, <lambdatune.config_selection.index.Index object at 0x1503286d0>, <lambdatune.config_selection.index.Index object at 0x1503287f0>, <lambdatune.config_selection.index.Index object at 0x150328790>, <lambdatune.config_selection.index.Index object at 0x150328a90>, <lambdatune.config_selection.index.Index object at 0x150328910>, <lambdatune.config_selection.index.Index object at 0x150328610>, <lambdatune.config_selection.index.Index object at 0x1503288b0>, <lambdatune.config_selection.index.Index object at 0x1503289d0>}
+INFO:root:Query Indexes: 12
+INFO:root:Running query: 14 with timeout: 1.0189015865325928
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x150328520>, <lambdatune.config_selection.index.Index object at 0x150328a30>, <lambdatune.config_selection.index.Index object at 0x150328670>, <lambdatune.config_selection.index.Index object at 0x150328850>, <lambdatune.config_selection.index.Index object at 0x150328970>, <lambdatune.config_selection.index.Index object at 0x150328730>, <lambdatune.config_selection.index.Index object at 0x1503286d0>, <lambdatune.config_selection.index.Index object at 0x1503287f0>, <lambdatune.config_selection.index.Index object at 0x150328790>, <lambdatune.config_selection.index.Index object at 0x150328a90>, <lambdatune.config_selection.index.Index object at 0x150328910>, <lambdatune.config_selection.index.Index object at 0x150328610>, <lambdatune.config_selection.index.Index object at 0x1503288b0>, <lambdatune.config_selection.index.Index object at 0x1503289d0>}
+INFO:root:Query Indexes: 2
+INFO:root:Running query: 17 with timeout: 0.8953433036804199
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x150328520>, <lambdatune.config_selection.index.Index object at 0x150328a30>, <lambdatune.config_selection.index.Index object at 0x150328670>, <lambdatune.config_selection.index.Index object at 0x150328850>, <lambdatune.config_selection.index.Index object at 0x150328970>, <lambdatune.config_selection.index.Index object at 0x150328730>, <lambdatune.config_selection.index.Index object at 0x1503286d0>, <lambdatune.config_selection.index.Index object at 0x1503287f0>, <lambdatune.config_selection.index.Index object at 0x150328790>, <lambdatune.config_selection.index.Index object at 0x150328a90>, <lambdatune.config_selection.index.Index object at 0x150328910>, <lambdatune.config_selection.index.Index object at 0x150328610>, <lambdatune.config_selection.index.Index object at 0x1503288b0>, <lambdatune.config_selection.index.Index object at 0x1503289d0>}
+INFO:root:Query Indexes: 2
+INFO:root:Running query: 19 with timeout: 0.5870704650878906
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x150328520>, <lambdatune.config_selection.index.Index object at 0x150328a30>, <lambdatune.config_selection.index.Index object at 0x150328670>, <lambdatune.config_selection.index.Index object at 0x150328850>, <lambdatune.config_selection.index.Index object at 0x150328970>, <lambdatune.config_selection.index.Index object at 0x150328730>, <lambdatune.config_selection.index.Index object at 0x1503286d0>, <lambdatune.config_selection.index.Index object at 0x1503287f0>, <lambdatune.config_selection.index.Index object at 0x150328790>, <lambdatune.config_selection.index.Index object at 0x150328a90>, <lambdatune.config_selection.index.Index object at 0x150328910>, <lambdatune.config_selection.index.Index object at 0x150328610>, <lambdatune.config_selection.index.Index object at 0x1503288b0>, <lambdatune.config_selection.index.Index object at 0x1503289d0>}
+INFO:root:Query Indexes: 2
+INFO:root:Config config_tpch_tokens_9223372036854775807_0.2_1746590556 succeeded!
+DEBUG:root:Created Indexes: 14, Total Indexes: 14
+INFO:root:{
+  "config_id": "config_tpch_tokens_9223372036854775807_0.2_1746590556",
+  "total_query_execution_time": 9.432680368423462,
+  "total_completed_query_execution_time": 9.432680368423462,
+  "best_execution_time": 9.432680368423462,
+  "duration_seconds": 53.57256603240967,
+  "start_time": 1746590597.674625,
+  "report_ts": 1746590624.173093,
+  "round_num_indexes_created": 14,
+  "round_index_creation_time": 5.6899354457855225,
+  "round_query_execution_time": 9.432680368423462,
+  "round_completed_queries": 22,
+  "round_config_reset_time": 0.07082891464233398,
+  "round_reconfiguration_time": 11.010759830474854,
+  "queries_completed_total": 22,
+  "num_indexes_created_total": 14,
+  "num_indexes_total": 14,
+  "completed": true,
+  "timeout": 10,
+  "alpha": 10,
+  "driver_config": {
+    "allow_in_place_tablespaces": "off",
+    "allow_system_table_mods": "off",
+    "application_name": "",
+    "archive_cleanup_command": "",
+    "archive_command": "(disabled)",
+    "archive_mode": "off",
+    "archive_timeout": "0",
+    "array_nulls": "on",
+    "authentication_timeout": "1min",
+    "autovacuum": "on",
+    "autovacuum_analyze_scale_factor": "0.1",
+    "autovacuum_analyze_threshold": "50",
+    "autovacuum_freeze_max_age": "200000000",
+    "autovacuum_max_workers": "3",
+    "autovacuum_multixact_freeze_max_age": "400000000",
+    "autovacuum_naptime": "1min",
+    "autovacuum_vacuum_cost_delay": "2ms",
+    "autovacuum_vacuum_cost_limit": "-1",
+    "autovacuum_vacuum_insert_scale_factor": "0.2",
+    "autovacuum_vacuum_insert_threshold": "1000",
+    "autovacuum_vacuum_scale_factor": "0.2",
+    "autovacuum_vacuum_threshold": "50",
+    "autovacuum_work_mem": "-1",
+    "backend_flush_after": "0",
+    "backslash_quote": "safe_encoding",
+    "backtrace_functions": "",
+    "bgwriter_delay": "200ms",
+    "bgwriter_flush_after": "0",
+    "bgwriter_lru_maxpages": "100",
+    "bgwriter_lru_multiplier": "2",
+    "block_size": "8192",
+    "bonjour": "off",
+    "bonjour_name": "",
+    "bytea_output": "hex",
+    "check_function_bodies": "on",
+    "checkpoint_completion_target": "0.9",
+    "checkpoint_flush_after": "0",
+    "checkpoint_timeout": "5min",
+    "checkpoint_warning": "30s",
+    "client_connection_check_interval": "0",
+    "client_encoding": "UTF8",
+    "client_min_messages": "notice",
+    "cluster_name": "",
+    "commit_delay": "0",
+    "commit_siblings": "5",
+    "compute_query_id": "auto",
+    "config_file": "/opt/homebrew/var/postgresql@14/postgresql.conf",
+    "constraint_exclusion": "partition",
+    "cpu_index_tuple_cost": "0.005",
+    "cpu_operator_cost": "0.0025",
+    "cpu_tuple_cost": "0.01",
+    "cursor_tuple_fraction": "0.1",
+    "data_checksums": "off",
+    "data_directory": "/opt/homebrew/var/postgresql@14",
+    "data_directory_mode": "0700",
+    "data_sync_retry": "off",
+    "DateStyle": "ISO, MDY",
+    "db_user_namespace": "off",
+    "deadlock_timeout": "1s",
+    "debug_assertions": "off",
+    "debug_discard_caches": "0",
+    "debug_pretty_print": "on",
+    "debug_print_parse": "off",
+    "debug_print_plan": "off",
+    "debug_print_rewritten": "off",
+    "default_statistics_target": "100",
+    "default_table_access_method": "heap",
+    "default_tablespace": "",
+    "default_text_search_config": "pg_catalog.english",
+    "default_toast_compression": "pglz",
+    "default_transaction_deferrable": "off",
+    "default_transaction_isolation": "read committed",
+    "default_transaction_read_only": "off",
+    "dynamic_library_path": "$libdir",
+    "dynamic_shared_memory_type": "posix",
+    "effective_cache_size": "45GB",
+    "effective_io_concurrency": "0",
+    "enable_async_append": "on",
+    "enable_bitmapscan": "on",
+    "enable_gathermerge": "on",
+    "enable_hashagg": "on",
+    "enable_hashjoin": "on",
+    "enable_incremental_sort": "on",
+    "enable_indexonlyscan": "on",
+    "enable_indexscan": "on",
+    "enable_material": "on",
+    "enable_memoize": "on",
+    "enable_mergejoin": "on",
+    "enable_nestloop": "on",
+    "enable_parallel_append": "on",
+    "enable_parallel_hash": "on",
+    "enable_partition_pruning": "on",
+    "enable_partitionwise_aggregate": "off",
+    "enable_partitionwise_join": "off",
+    "enable_seqscan": "on",
+    "enable_sort": "on",
+    "enable_tidscan": "on",
+    "escape_string_warning": "on",
+    "event_source": "PostgreSQL",
+    "exit_on_error": "off",
+    "external_pid_file": "",
+    "extra_float_digits": "1",
+    "force_parallel_mode": "off",
+    "from_collapse_limit": "8",
+    "fsync": "on",
+    "full_page_writes": "on",
+    "geqo": "on",
+    "geqo_effort": "5",
+    "geqo_generations": "0",
+    "geqo_pool_size": "0",
+    "geqo_seed": "0",
+    "geqo_selection_bias": "2",
+    "geqo_threshold": "12",
+    "gin_fuzzy_search_limit": "0",
+    "gin_pending_list_limit": "4MB",
+    "hash_mem_multiplier": "1",
+    "hba_file": "/opt/homebrew/var/postgresql@14/pg_hba.conf",
+    "hot_standby": "on",
+    "hot_standby_feedback": "off",
+    "huge_page_size": "0",
+    "huge_pages": "try",
+    "ident_file": "/opt/homebrew/var/postgresql@14/pg_ident.conf",
+    "idle_in_transaction_session_timeout": "0",
+    "idle_session_timeout": "0",
+    "ignore_checksum_failure": "off",
+    "ignore_invalid_pages": "off",
+    "ignore_system_indexes": "off",
+    "in_hot_standby": "off",
+    "integer_datetimes": "on",
+    "IntervalStyle": "postgres",
+    "jit": "on",
+    "jit_above_cost": "100000",
+    "jit_debugging_support": "off",
+    "jit_dump_bitcode": "off",
+    "jit_expressions": "on",
+    "jit_inline_above_cost": "500000",
+    "jit_optimize_above_cost": "500000",
+    "jit_profiling_support": "off",
+    "jit_provider": "llvmjit",
+    "jit_tuple_deforming": "on",
+    "join_collapse_limit": "8",
+    "krb_caseins_users": "off",
+    "krb_server_keyfile": "FILE:/opt/homebrew/Cellar/postgresql@14/14.17_1/etc/krb5.keytab",
+    "lc_collate": "C",
+    "lc_ctype": "C",
+    "lc_messages": "C",
+    "lc_monetary": "C",
+    "lc_numeric": "C",
+    "lc_time": "C",
+    "listen_addresses": "localhost",
+    "lo_compat_privileges": "off",
+    "local_preload_libraries": "",
+    "lock_timeout": "0",
+    "log_autovacuum_min_duration": "-1",
+    "log_checkpoints": "off",
+    "log_connections": "off",
+    "log_destination": "stderr",
+    "log_directory": "log",
+    "log_disconnections": "off",
+    "log_duration": "off",
+    "log_error_verbosity": "default",
+    "log_executor_stats": "off",
+    "log_file_mode": "0600",
+    "log_filename": "postgresql-%Y-%m-%d_%H%M%S.log",
+    "log_hostname": "off",
+    "log_line_prefix": "%m [%p] ",
+    "log_lock_waits": "off",
+    "log_min_duration_sample": "-1",
+    "log_min_duration_statement": "-1",
+    "log_min_error_statement": "error",
+    "log_min_messages": "warning",
+    "log_parameter_max_length": "-1",
+    "log_parameter_max_length_on_error": "0",
+    "log_parser_stats": "off",
+    "log_planner_stats": "off",
+    "log_recovery_conflict_waits": "off",
+    "log_replication_commands": "off",
+    "log_rotation_age": "1d",
+    "log_rotation_size": "10MB",
+    "log_statement": "none",
+    "log_statement_sample_rate": "1",
+    "log_statement_stats": "off",
+    "log_temp_files": "-1",
+    "log_timezone": "America/Chicago",
+    "log_transaction_sample_rate": "0",
+    "log_truncate_on_rotation": "off",
+    "logging_collector": "off",
+    "logical_decoding_work_mem": "64MB",
+    "maintenance_io_concurrency": "0",
+    "maintenance_work_mem": "2GB",
+    "max_connections": "100",
+    "max_files_per_process": "1000",
+    "max_function_args": "100",
+    "max_identifier_length": "63",
+    "max_index_keys": "32",
+    "max_locks_per_transaction": "64",
+    "max_logical_replication_workers": "4",
+    "max_parallel_maintenance_workers": "2",
+    "max_parallel_workers": "8",
+    "max_parallel_workers_per_gather": "4",
+    "max_pred_locks_per_page": "2",
+    "max_pred_locks_per_relation": "-2",
+    "max_pred_locks_per_transaction": "64",
+    "max_prepared_transactions": "0",
+    "max_replication_slots": "10",
+    "max_slot_wal_keep_size": "-1",
+    "max_stack_depth": "2MB",
+    "max_standby_archive_delay": "30s",
+    "max_standby_streaming_delay": "30s",
+    "max_sync_workers_per_subscription": "2",
+    "max_wal_senders": "10",
+    "max_wal_size": "1GB",
+    "max_worker_processes": "8",
+    "min_dynamic_shared_memory": "0",
+    "min_parallel_index_scan_size": "512kB",
+    "min_parallel_table_scan_size": "8MB",
+    "min_wal_size": "80MB",
+    "old_snapshot_threshold": "-1",
+    "parallel_leader_participation": "on",
+    "parallel_setup_cost": "1000",
+    "parallel_tuple_cost": "0.1",
+    "password_encryption": "scram-sha-256",
+    "plan_cache_mode": "auto",
+    "port": "5432",
+    "post_auth_delay": "0",
+    "pre_auth_delay": "0",
+    "primary_conninfo": "",
+    "primary_slot_name": "",
+    "promote_trigger_file": "",
+    "quote_all_identifiers": "off",
+    "random_page_cost": "1.1",
+    "recovery_end_command": "",
+    "recovery_init_sync_method": "fsync",
+    "recovery_min_apply_delay": "0",
+    "recovery_target": "",
+    "recovery_target_action": "pause",
+    "recovery_target_inclusive": "on",
+    "recovery_target_lsn": "",
+    "recovery_target_name": "",
+    "recovery_target_time": "",
+    "recovery_target_timeline": "latest",
+    "recovery_target_xid": "",
+    "remove_temp_files_after_crash": "on",
+    "restart_after_crash": "on",
+    "restore_command": "",
+    "restrict_nonsystem_relation_kind": "",
+    "row_security": "on",
+    "search_path": "\"$user\", public",
+    "segment_size": "1GB",
+    "seq_page_cost": "1",
+    "server_encoding": "UTF8",
+    "server_version": "14.17 (Homebrew)",
+    "server_version_num": "140017",
+    "session_preload_libraries": "",
+    "session_replication_role": "origin",
+    "shared_buffers": "15GB",
+    "shared_memory_type": "mmap",
+    "shared_preload_libraries": "",
+    "ssl": "off",
+    "ssl_ca_file": "",
+    "ssl_cert_file": "server.crt",
+    "ssl_ciphers": "HIGH:MEDIUM:+3DES:!aNULL",
+    "ssl_crl_dir": "",
+    "ssl_crl_file": "",
+    "ssl_dh_params_file": "",
+    "ssl_ecdh_curve": "prime256v1",
+    "ssl_key_file": "server.key",
+    "ssl_library": "OpenSSL",
+    "ssl_max_protocol_version": "",
+    "ssl_min_protocol_version": "TLSv1.2",
+    "ssl_passphrase_command": "",
+    "ssl_passphrase_command_supports_reload": "off",
+    "ssl_prefer_server_ciphers": "on",
+    "standard_conforming_strings": "on",
+    "statement_timeout": "0",
+    "stats_temp_directory": "pg_stat_tmp",
+    "superuser_reserved_connections": "3",
+    "synchronize_seqscans": "on",
+    "synchronous_commit": "on",
+    "synchronous_standby_names": "",
+    "syslog_facility": "local0",
+    "syslog_ident": "postgres",
+    "syslog_sequence_numbers": "on",
+    "syslog_split_messages": "on",
+    "tcp_keepalives_count": "8",
+    "tcp_keepalives_idle": "7200",
+    "tcp_keepalives_interval": "75",
+    "tcp_user_timeout": "0",
+    "temp_buffers": "8MB",
+    "temp_file_limit": "-1",
+    "temp_tablespaces": "",
+    "TimeZone": "America/Chicago",
+    "timezone_abbreviations": "Default",
+    "trace_notify": "off",
+    "trace_recovery_messages": "log",
+    "trace_sort": "off",
+    "track_activities": "on",
+    "track_activity_query_size": "1kB",
+    "track_commit_timestamp": "off",
+    "track_counts": "on",
+    "track_functions": "none",
+    "track_io_timing": "off",
+    "track_wal_io_timing": "off",
+    "transaction_deferrable": "off",
+    "transaction_isolation": "read committed",
+    "transaction_read_only": "off",
+    "transform_null_equals": "off",
+    "unix_socket_directories": "/tmp",
+    "unix_socket_group": "",
+    "unix_socket_permissions": "0777",
+    "update_process_title": "on",
+    "vacuum_cost_delay": "0",
+    "vacuum_cost_limit": "200",
+    "vacuum_cost_page_dirty": "20",
+    "vacuum_cost_page_hit": "1",
+    "vacuum_cost_page_miss": "2",
+    "vacuum_defer_cleanup_age": "0",
+    "vacuum_failsafe_age": "1600000000",
+    "vacuum_freeze_min_age": "50000000",
+    "vacuum_freeze_table_age": "150000000",
+    "vacuum_multixact_failsafe_age": "1600000000",
+    "vacuum_multixact_freeze_min_age": "5000000",
+    "vacuum_multixact_freeze_table_age": "150000000",
+    "wal_block_size": "8192",
+    "wal_buffers": "16MB",
+    "wal_compression": "off",
+    "wal_consistency_checking": "",
+    "wal_init_zero": "on",
+    "wal_keep_size": "0",
+    "wal_level": "replica",
+    "wal_log_hints": "off",
+    "wal_receiver_create_temp_slot": "off",
+    "wal_receiver_status_interval": "10s",
+    "wal_receiver_timeout": "1min",
+    "wal_recycle": "on",
+    "wal_retrieve_retry_interval": "5s",
+    "wal_segment_size": "16MB",
+    "wal_sender_timeout": "1min",
+    "wal_skip_threshold": "2MB",
+    "wal_sync_method": "open_datasync",
+    "wal_writer_delay": "200ms",
+    "wal_writer_flush_after": "1MB",
+    "work_mem": "1GB",
+    "xmlbinary": "base64",
+    "xmloption": "content",
+    "zero_damaged_pages": "off"
+  },
+  "lambda_tune_config": [
+    "ALTER SYSTEM SET effective_io_concurrency = 200;",
+    "ALTER SYSTEM SET random_page_cost = 1.1;",
+    "ALTER SYSTEM SET max_parallel_workers_per_gather = 4;",
+    "ALTER SYSTEM SET shared_buffers = '15GB';",
+    "ALTER SYSTEM SET work_mem = '1GB';",
+    "ALTER SYSTEM SET max_parallel_workers = 8;",
+    "ALTER SYSTEM SET maintenance_work_mem = '2GB';",
+    "ALTER SYSTEM SET effective_cache_size = '45GB';"
+  ],
+  "created_indexes": [
+    "idx_partsupp_ps_suppkey_12",
+    "idx_supplier_s_suppkey_11",
+    "idx_partsupp_ps_partkey_2",
+    "idx_nation_n_nationkey_4",
+    "idx_supplier_s_nationkey_5",
+    "idx_part_p_partkey_6",
+    "idx_nation_n_regionkey_13",
+    "idx_lineitem_l_orderkey_8",
+    "idx_orders_o_orderkey_9",
+    "idx_orders_o_custkey_0",
+    "idx_customer_c_custkey_7",
+    "idx_customer_c_nationkey_1",
+    "idx_lineitem_l_suppkey_3",
+    "idx_lineitem_l_partkey_10"
+  ],
+  "round_completed_query_times": {
+    "11": 0.04241299629211426,
+    "16": 0.07955193519592285,
+    "02": 0.0946359634399414,
+    "04": 0.06555485725402832,
+    "12": 0.336292028427124,
+    "03": 0.32529306411743164,
+    "13": 0.5430481433868408,
+    "18": 2.3757128715515137,
+    "22": 0.0382380485534668,
+    "10": 0.1372363567352295,
+    "05": 0.12944507598876953,
+    "07": 0.3682119846343994,
+    "01": 0.7086310386657715,
+    "06": 0.1183481216430664,
+    "15": 2.464942216873169,
+    "21": 0.31528186798095703,
+    "09": 0.13068795204162598,
+    "20": 0.35384178161621094,
+    "08": 0.3537321090698242,
+    "14": 0.12355828285217285,
+    "17": 0.3082728385925293,
+    "19": 0.01975083351135254
+  }
+}
+INFO:root:Resetting configuration
+INFO:root:Dropping index: idx_partsupp_ps_suppkey_12
+INFO:root:Dropping index: idx_supplier_s_suppkey_11
+INFO:root:Dropping index: idx_partsupp_ps_partkey_2
+INFO:root:Dropping index: idx_nation_n_nationkey_4
+INFO:root:Dropping index: idx_supplier_s_nationkey_5
+INFO:root:Dropping index: idx_part_p_partkey_6
+INFO:root:Dropping index: idx_nation_n_regionkey_13
+INFO:root:Dropping index: idx_lineitem_l_orderkey_8
+INFO:root:Dropping index: idx_orders_o_orderkey_9
+INFO:root:Dropping index: idx_orders_o_custkey_0
+INFO:root:Dropping index: idx_customer_c_custkey_7
+INFO:root:Dropping index: idx_customer_c_nationkey_1
+INFO:root:Dropping index: idx_lineitem_l_suppkey_3
+INFO:root:Dropping index: idx_lineitem_l_partkey_10
+INFO:root:Resetting Postgres configuration
+INFO:root:Connected to Postgres
+INFO:root:Done!
+DEBUG:root:Resetting config took: 0.06668424606323242
+INFO:root:Resetting Postgres
+INFO:root:Setting config: ALTER SYSTEM SET effective_io_concurrency = 200;
+INFO:root:Setting config: ALTER SYSTEM SET random_page_cost = 1.1;
+INFO:root:Setting config: ALTER SYSTEM SET max_parallel_workers_per_gather = 4;
+INFO:root:Setting config: ALTER SYSTEM SET shared_buffers = '15GB';
+INFO:root:Setting config: ALTER SYSTEM SET max_parallel_workers = 8;
+INFO:root:Setting config: ALTER SYSTEM SET maintenance_work_mem = '2GB';
+INFO:root:Setting config: ALTER SYSTEM SET effective_cache_size = '45GB';
+INFO:root:Setting config: ALTER SYSTEM SET work_mem = '256MB';
+INFO:root:Restarting Postgres
+INFO:root:Done!
+INFO:root:waiting 5 secs...
+INFO:root:Connected to Postgres
+INFO:root:Done!
+INFO:root:Trying config: config_tpch_tokens_9223372036854775807_0.2_1746590568
+DEBUG:root:Clusters:
+DEBUG:root:Cluster 0 (size: 4):
+DEBUG:root:[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1]
+DEBUG:root:[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1]
+DEBUG:root:[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1]
+DEBUG:root:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1]
+DEBUG:root:Cluster 1 (size: 2):
+DEBUG:root:[1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0]
+DEBUG:root:[1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0]
+DEBUG:root:Cluster 2 (size: 1):
+DEBUG:root:[0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0]
+DEBUG:root:Cluster 3 (size: 3):
+DEBUG:root:[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+DEBUG:root:[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+DEBUG:root:[0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+DEBUG:root:Cluster 4 (size: 2):
+DEBUG:root:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+DEBUG:root:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+DEBUG:root:Cluster 5 (size: 1):
+DEBUG:root:[1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
+DEBUG:root:Cluster 6 (size: 1):
+DEBUG:root:[0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+DEBUG:root:Cluster 7 (size: 1):
+DEBUG:root:[1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0]
+DEBUG:root:Cluster 8 (size: 2):
+DEBUG:root:[0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1]
+DEBUG:root:[0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1]
+DEBUG:root:Cluster 9 (size: 1):
+DEBUG:root:[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1]
+DEBUG:root:Cluster 10 (size: 2):
+DEBUG:root:[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0]
+DEBUG:root:[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0]
+DEBUG:root:Cluster 11 (size: 1):
+DEBUG:root:[1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0]
+DEBUG:root:Cluster 12 (size: 1):
+DEBUG:root:[0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0]
+DEBUG:root:#Subsets: 78
+DEBUG:root:Finished with subset of size: 2
+DEBUG:root:#Subsets: 286
+DEBUG:root:Finished with subset of size: 3
+DEBUG:root:#Subsets: 715
+DEBUG:root:Finished with subset of size: 4
+DEBUG:root:#Subsets: 1287
+DEBUG:root:Finished with subset of size: 5
+DEBUG:root:#Subsets: 1716
+DEBUG:root:Finished with subset of size: 6
+DEBUG:root:#Subsets: 1716
+DEBUG:root:Finished with subset of size: 7
+DEBUG:root:#Subsets: 1287
+DEBUG:root:Finished with subset of size: 8
+DEBUG:root:#Subsets: 715
+DEBUG:root:Finished with subset of size: 9
+DEBUG:root:#Subsets: 286
+DEBUG:root:Finished with subset of size: 10
+DEBUG:root:#Subsets: 78
+DEBUG:root:Finished with subset of size: 11
+DEBUG:root:#Subsets: 13
+DEBUG:root:Finished with subset of size: 12
+DEBUG:root:#Subsets: 1
+DEBUG:root:Finished with subset of size: 13
+DEBUG:root:Cluster: 4, #Indexes: [], Queries: ['01', '06']
+DEBUG:root:Cluster: 5, #Indexes: ['Index(idx_part_p_partkey_19, part, p_partkey)', 'Index(idx_partsupp_ps_partkey_16, partsupp, ps_partkey)', 'Index(idx_supplier_s_suppkey_25, supplier, s_suppkey)', 'Index(idx_partsupp_ps_suppkey_26, partsupp, ps_suppkey)'], Queries: ['16']
+DEBUG:root:Cluster: 1, #Indexes: ['Index(idx_partsupp_ps_partkey_16, partsupp, ps_partkey)', 'Index(idx_nation_n_nationkey_18, nation, n_nationkey)', 'Index(idx_partsupp_ps_suppkey_26, partsupp, ps_suppkey)', 'Index(idx_part_p_partkey_19, part, p_partkey)', 'Index(idx_nation_n_regionkey_27, nation, n_regionkey)', 'Index(idx_supplier_s_suppkey_25, supplier, s_suppkey)', 'Index(idx_supplier_s_nationkey_20, supplier, s_nationkey)'], Queries: ['02', '11']
+DEBUG:root:Cluster: 10, #Indexes: ['Index(idx_orders_o_orderkey_23, orders, o_orderkey)', 'Index(idx_lineitem_l_orderkey_22, lineitem, l_orderkey)'], Queries: ['04', '12']
+DEBUG:root:Cluster: 0, #Indexes: ['Index(idx_orders_o_orderkey_23, orders, o_orderkey)', 'Index(idx_customer_c_custkey_21, customer, c_custkey)', 'Index(idx_lineitem_l_orderkey_22, lineitem, l_orderkey)', 'Index(idx_orders_o_custkey_14, orders, o_custkey)'], Queries: ['03', '13', '18', '22']
+DEBUG:root:Cluster: 9, #Indexes: ['Index(idx_nation_n_nationkey_18, nation, n_nationkey)', 'Index(idx_customer_c_nationkey_15, customer, c_nationkey)', 'Index(idx_orders_o_orderkey_23, orders, o_orderkey)', 'Index(idx_customer_c_custkey_21, customer, c_custkey)', 'Index(idx_lineitem_l_orderkey_22, lineitem, l_orderkey)', 'Index(idx_orders_o_custkey_14, orders, o_custkey)'], Queries: ['10']
+DEBUG:root:Cluster: 12, #Indexes: ['Index(idx_lineitem_l_suppkey_17, lineitem, l_suppkey)', 'Index(idx_supplier_s_suppkey_25, supplier, s_suppkey)'], Queries: ['15']
+DEBUG:root:Cluster: 8, #Indexes: ['Index(idx_orders_o_orderkey_23, orders, o_orderkey)', 'Index(idx_lineitem_l_orderkey_22, lineitem, l_orderkey)', 'Index(idx_supplier_s_suppkey_25, supplier, s_suppkey)', 'Index(idx_lineitem_l_suppkey_17, lineitem, l_suppkey)', 'Index(idx_customer_c_nationkey_15, customer, c_nationkey)', 'Index(idx_orders_o_custkey_14, orders, o_custkey)', 'Index(idx_nation_n_nationkey_18, nation, n_nationkey)', 'Index(idx_customer_c_custkey_21, customer, c_custkey)', 'Index(idx_nation_n_regionkey_27, nation, n_regionkey)', 'Index(idx_supplier_s_nationkey_20, supplier, s_nationkey)'], Queries: ['05', '07']
+DEBUG:root:Cluster: 2, #Indexes: ['Index(idx_lineitem_l_suppkey_17, lineitem, l_suppkey)', 'Index(idx_nation_n_nationkey_18, nation, n_nationkey)', 'Index(idx_orders_o_orderkey_23, orders, o_orderkey)', 'Index(idx_lineitem_l_orderkey_22, lineitem, l_orderkey)', 'Index(idx_supplier_s_suppkey_25, supplier, s_suppkey)', 'Index(idx_supplier_s_nationkey_20, supplier, s_nationkey)'], Queries: ['21']
+DEBUG:root:Cluster: 11, #Indexes: ['Index(idx_lineitem_l_suppkey_17, lineitem, l_suppkey)', 'Index(idx_partsupp_ps_partkey_16, partsupp, ps_partkey)', 'Index(idx_lineitem_l_partkey_24, lineitem, l_partkey)', 'Index(idx_nation_n_nationkey_18, nation, n_nationkey)', 'Index(idx_partsupp_ps_suppkey_26, partsupp, ps_suppkey)', 'Index(idx_orders_o_orderkey_23, orders, o_orderkey)', 'Index(idx_part_p_partkey_19, part, p_partkey)', 'Index(idx_lineitem_l_orderkey_22, lineitem, l_orderkey)', 'Index(idx_supplier_s_suppkey_25, supplier, s_suppkey)', 'Index(idx_supplier_s_nationkey_20, supplier, s_nationkey)'], Queries: ['09']
+DEBUG:root:Cluster: 7, #Indexes: ['Index(idx_lineitem_l_suppkey_17, lineitem, l_suppkey)', 'Index(idx_partsupp_ps_partkey_16, partsupp, ps_partkey)', 'Index(idx_lineitem_l_partkey_24, lineitem, l_partkey)', 'Index(idx_nation_n_nationkey_18, nation, n_nationkey)', 'Index(idx_partsupp_ps_suppkey_26, partsupp, ps_suppkey)', 'Index(idx_part_p_partkey_19, part, p_partkey)', 'Index(idx_supplier_s_suppkey_25, supplier, s_suppkey)', 'Index(idx_supplier_s_nationkey_20, supplier, s_nationkey)'], Queries: ['20']
+DEBUG:root:Cluster: 6, #Indexes: ['Index(idx_lineitem_l_suppkey_17, lineitem, l_suppkey)', 'Index(idx_customer_c_nationkey_15, customer, c_nationkey)', 'Index(idx_orders_o_custkey_14, orders, o_custkey)', 'Index(idx_lineitem_l_partkey_24, lineitem, l_partkey)', 'Index(idx_nation_n_nationkey_18, nation, n_nationkey)', 'Index(idx_lineitem_l_orderkey_22, lineitem, l_orderkey)', 'Index(idx_orders_o_orderkey_23, orders, o_orderkey)', 'Index(idx_customer_c_custkey_21, customer, c_custkey)', 'Index(idx_part_p_partkey_19, part, p_partkey)', 'Index(idx_nation_n_regionkey_27, nation, n_regionkey)', 'Index(idx_supplier_s_suppkey_25, supplier, s_suppkey)', 'Index(idx_supplier_s_nationkey_20, supplier, s_nationkey)'], Queries: ['08']
+DEBUG:root:Cluster: 3, #Indexes: ['Index(idx_lineitem_l_partkey_24, lineitem, l_partkey)', 'Index(idx_part_p_partkey_19, part, p_partkey)'], Queries: ['14', '17', '19']
+INFO:root:Found best execution time. Setting timeout to 9.432680368423462 - 0.0 = 9.432680368423462
+INFO:root:Running query: 01 with timeout: 9.432680368423462
+INFO:root:Created Indexes: set()
+INFO:root:Query Indexes: 0
+INFO:root:Running query: 06 with timeout: 7.918009281158447
+INFO:root:Created Indexes: set()
+INFO:root:Query Indexes: 0
+INFO:root:Running query: 16 with timeout: 7.7972252368927
+INFO:root:Created Indexes: set()
+INFO:root:Query Indexes: 4
+INFO:root:Creating index: Index(idx_part_p_partkey_19, part, p_partkey)
+INFO:root:Creating index: Index(idx_partsupp_ps_partkey_16, partsupp, ps_partkey)
+INFO:root:Creating index: Index(idx_supplier_s_suppkey_25, supplier, s_suppkey)
+INFO:root:Creating index: Index(idx_partsupp_ps_suppkey_26, partsupp, ps_suppkey)
+INFO:root:Running query: 02 with timeout: 7.716989040374756
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11c069940>, <lambdatune.config_selection.index.Index object at 0x11c069bb0>, <lambdatune.config_selection.index.Index object at 0x11c069e20>, <lambdatune.config_selection.index.Index object at 0x11c069dc0>}
+INFO:root:Query Indexes: 7
+INFO:root:Creating index: Index(idx_nation_n_nationkey_18, nation, n_nationkey)
+INFO:root:Creating index: Index(idx_nation_n_regionkey_27, nation, n_regionkey)
+INFO:root:Creating index: Index(idx_supplier_s_nationkey_20, supplier, s_nationkey)
+INFO:root:Running query: 11 with timeout: 7.625030040740967
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11c069bb0>, <lambdatune.config_selection.index.Index object at 0x11c069ac0>, <lambdatune.config_selection.index.Index object at 0x11c069dc0>, <lambdatune.config_selection.index.Index object at 0x11c069940>, <lambdatune.config_selection.index.Index object at 0x11c069ca0>, <lambdatune.config_selection.index.Index object at 0x11c069e20>, <lambdatune.config_selection.index.Index object at 0x11c069760>}
+INFO:root:Query Indexes: 5
+INFO:root:Running query: 04 with timeout: 7.588755130767822
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11c069bb0>, <lambdatune.config_selection.index.Index object at 0x11c069ac0>, <lambdatune.config_selection.index.Index object at 0x11c069dc0>, <lambdatune.config_selection.index.Index object at 0x11c069940>, <lambdatune.config_selection.index.Index object at 0x11c069ca0>, <lambdatune.config_selection.index.Index object at 0x11c069e20>, <lambdatune.config_selection.index.Index object at 0x11c069760>}
+INFO:root:Query Indexes: 2
+INFO:root:Creating index: Index(idx_orders_o_orderkey_23, orders, o_orderkey)
+INFO:root:Creating index: Index(idx_lineitem_l_orderkey_22, lineitem, l_orderkey)
+INFO:root:Running query: 12 with timeout: 7.529983043670654
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11c069bb0>, <lambdatune.config_selection.index.Index object at 0x11c069ac0>, <lambdatune.config_selection.index.Index object at 0x11c0697c0>, <lambdatune.config_selection.index.Index object at 0x11c069dc0>, <lambdatune.config_selection.index.Index object at 0x11c0698e0>, <lambdatune.config_selection.index.Index object at 0x11c069940>, <lambdatune.config_selection.index.Index object at 0x11c069ca0>, <lambdatune.config_selection.index.Index object at 0x11c069e20>, <lambdatune.config_selection.index.Index object at 0x11c069760>}
+INFO:root:Query Indexes: 2
+INFO:root:Running query: 03 with timeout: 7.205776929855347
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11c069bb0>, <lambdatune.config_selection.index.Index object at 0x11c069ac0>, <lambdatune.config_selection.index.Index object at 0x11c0697c0>, <lambdatune.config_selection.index.Index object at 0x11c069dc0>, <lambdatune.config_selection.index.Index object at 0x11c0698e0>, <lambdatune.config_selection.index.Index object at 0x11c069940>, <lambdatune.config_selection.index.Index object at 0x11c069ca0>, <lambdatune.config_selection.index.Index object at 0x11c069e20>, <lambdatune.config_selection.index.Index object at 0x11c069760>}
+INFO:root:Query Indexes: 4
+INFO:root:Creating index: Index(idx_customer_c_custkey_21, customer, c_custkey)
+INFO:root:Creating index: Index(idx_orders_o_custkey_14, orders, o_custkey)
+INFO:root:Running query: 13 with timeout: 6.980126142501831
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11c069bb0>, <lambdatune.config_selection.index.Index object at 0x11c069700>, <lambdatune.config_selection.index.Index object at 0x11c069ac0>, <lambdatune.config_selection.index.Index object at 0x11c0697c0>, <lambdatune.config_selection.index.Index object at 0x11c069dc0>, <lambdatune.config_selection.index.Index object at 0x11c0698e0>, <lambdatune.config_selection.index.Index object at 0x11c069310>, <lambdatune.config_selection.index.Index object at 0x11c069940>, <lambdatune.config_selection.index.Index object at 0x11c069ca0>, <lambdatune.config_selection.index.Index object at 0x11c069e20>, <lambdatune.config_selection.index.Index object at 0x11c069760>}
+INFO:root:Query Indexes: 3
+INFO:root:Running query: 18 with timeout: 6.532682180404663
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11c069bb0>, <lambdatune.config_selection.index.Index object at 0x11c069700>, <lambdatune.config_selection.index.Index object at 0x11c069ac0>, <lambdatune.config_selection.index.Index object at 0x11c0697c0>, <lambdatune.config_selection.index.Index object at 0x11c069dc0>, <lambdatune.config_selection.index.Index object at 0x11c0698e0>, <lambdatune.config_selection.index.Index object at 0x11c069310>, <lambdatune.config_selection.index.Index object at 0x11c069940>, <lambdatune.config_selection.index.Index object at 0x11c069ca0>, <lambdatune.config_selection.index.Index object at 0x11c069e20>, <lambdatune.config_selection.index.Index object at 0x11c069760>}
+INFO:root:Query Indexes: 4
+INFO:root:Running query: 22 with timeout: 4.068605422973633
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11c069bb0>, <lambdatune.config_selection.index.Index object at 0x11c069700>, <lambdatune.config_selection.index.Index object at 0x11c069ac0>, <lambdatune.config_selection.index.Index object at 0x11c0697c0>, <lambdatune.config_selection.index.Index object at 0x11c069dc0>, <lambdatune.config_selection.index.Index object at 0x11c0698e0>, <lambdatune.config_selection.index.Index object at 0x11c069310>, <lambdatune.config_selection.index.Index object at 0x11c069940>, <lambdatune.config_selection.index.Index object at 0x11c069ca0>, <lambdatune.config_selection.index.Index object at 0x11c069e20>, <lambdatune.config_selection.index.Index object at 0x11c069760>}
+INFO:root:Query Indexes: 2
+INFO:root:Running query: 10 with timeout: 4.03168249130249
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11c069bb0>, <lambdatune.config_selection.index.Index object at 0x11c069700>, <lambdatune.config_selection.index.Index object at 0x11c069ac0>, <lambdatune.config_selection.index.Index object at 0x11c0697c0>, <lambdatune.config_selection.index.Index object at 0x11c069dc0>, <lambdatune.config_selection.index.Index object at 0x11c0698e0>, <lambdatune.config_selection.index.Index object at 0x11c069310>, <lambdatune.config_selection.index.Index object at 0x11c069940>, <lambdatune.config_selection.index.Index object at 0x11c069ca0>, <lambdatune.config_selection.index.Index object at 0x11c069e20>, <lambdatune.config_selection.index.Index object at 0x11c069760>}
+INFO:root:Query Indexes: 6
+INFO:root:Creating index: Index(idx_customer_c_nationkey_15, customer, c_nationkey)
+INFO:root:Running query: 15 with timeout: 3.902989387512207
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11c069e80>, <lambdatune.config_selection.index.Index object at 0x11c069bb0>, <lambdatune.config_selection.index.Index object at 0x11c069700>, <lambdatune.config_selection.index.Index object at 0x11c069ac0>, <lambdatune.config_selection.index.Index object at 0x11c0697c0>, <lambdatune.config_selection.index.Index object at 0x11c069dc0>, <lambdatune.config_selection.index.Index object at 0x11c0698e0>, <lambdatune.config_selection.index.Index object at 0x11c069310>, <lambdatune.config_selection.index.Index object at 0x11c069940>, <lambdatune.config_selection.index.Index object at 0x11c069ca0>, <lambdatune.config_selection.index.Index object at 0x11c069e20>, <lambdatune.config_selection.index.Index object at 0x11c069760>}
+INFO:root:Query Indexes: 2
+INFO:root:Creating index: Index(idx_lineitem_l_suppkey_17, lineitem, l_suppkey)
+INFO:root:Running query: 05 with timeout: 1.405792236328125
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11c069d60>, <lambdatune.config_selection.index.Index object at 0x11c069e80>, <lambdatune.config_selection.index.Index object at 0x11c069bb0>, <lambdatune.config_selection.index.Index object at 0x11c069700>, <lambdatune.config_selection.index.Index object at 0x11c069ac0>, <lambdatune.config_selection.index.Index object at 0x11c0697c0>, <lambdatune.config_selection.index.Index object at 0x11c069dc0>, <lambdatune.config_selection.index.Index object at 0x11c0698e0>, <lambdatune.config_selection.index.Index object at 0x11c069310>, <lambdatune.config_selection.index.Index object at 0x11c069940>, <lambdatune.config_selection.index.Index object at 0x11c069ca0>, <lambdatune.config_selection.index.Index object at 0x11c069e20>, <lambdatune.config_selection.index.Index object at 0x11c069760>}
+INFO:root:Query Indexes: 10
+INFO:root:Running query: 07 with timeout: 1.2808902263641357
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11c069d60>, <lambdatune.config_selection.index.Index object at 0x11c069e80>, <lambdatune.config_selection.index.Index object at 0x11c069bb0>, <lambdatune.config_selection.index.Index object at 0x11c069700>, <lambdatune.config_selection.index.Index object at 0x11c069ac0>, <lambdatune.config_selection.index.Index object at 0x11c0697c0>, <lambdatune.config_selection.index.Index object at 0x11c069dc0>, <lambdatune.config_selection.index.Index object at 0x11c0698e0>, <lambdatune.config_selection.index.Index object at 0x11c069310>, <lambdatune.config_selection.index.Index object at 0x11c069940>, <lambdatune.config_selection.index.Index object at 0x11c069ca0>, <lambdatune.config_selection.index.Index object at 0x11c069e20>, <lambdatune.config_selection.index.Index object at 0x11c069760>}
+INFO:root:Query Indexes: 9
+INFO:root:Running query: 21 with timeout: 0.9238872528076172
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11c069d60>, <lambdatune.config_selection.index.Index object at 0x11c069e80>, <lambdatune.config_selection.index.Index object at 0x11c069bb0>, <lambdatune.config_selection.index.Index object at 0x11c069700>, <lambdatune.config_selection.index.Index object at 0x11c069ac0>, <lambdatune.config_selection.index.Index object at 0x11c0697c0>, <lambdatune.config_selection.index.Index object at 0x11c069dc0>, <lambdatune.config_selection.index.Index object at 0x11c0698e0>, <lambdatune.config_selection.index.Index object at 0x11c069310>, <lambdatune.config_selection.index.Index object at 0x11c069940>, <lambdatune.config_selection.index.Index object at 0x11c069ca0>, <lambdatune.config_selection.index.Index object at 0x11c069e20>, <lambdatune.config_selection.index.Index object at 0x11c069760>}
+INFO:root:Query Indexes: 6
+INFO:root:Running query: 09 with timeout: 0.6306593418121338
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11c069d60>, <lambdatune.config_selection.index.Index object at 0x11c069e80>, <lambdatune.config_selection.index.Index object at 0x11c069bb0>, <lambdatune.config_selection.index.Index object at 0x11c069700>, <lambdatune.config_selection.index.Index object at 0x11c069ac0>, <lambdatune.config_selection.index.Index object at 0x11c0697c0>, <lambdatune.config_selection.index.Index object at 0x11c069dc0>, <lambdatune.config_selection.index.Index object at 0x11c0698e0>, <lambdatune.config_selection.index.Index object at 0x11c069310>, <lambdatune.config_selection.index.Index object at 0x11c069940>, <lambdatune.config_selection.index.Index object at 0x11c069ca0>, <lambdatune.config_selection.index.Index object at 0x11c069e20>, <lambdatune.config_selection.index.Index object at 0x11c069760>}
+INFO:root:Query Indexes: 10
+INFO:root:Creating index: Index(idx_lineitem_l_partkey_24, lineitem, l_partkey)
+INFO:root:Running query: 20 with timeout: 0.5113651752471924
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11c069d60>, <lambdatune.config_selection.index.Index object at 0x11c069e80>, <lambdatune.config_selection.index.Index object at 0x11c069bb0>, <lambdatune.config_selection.index.Index object at 0x11c069700>, <lambdatune.config_selection.index.Index object at 0x11c0697f0>, <lambdatune.config_selection.index.Index object at 0x11c069ac0>, <lambdatune.config_selection.index.Index object at 0x11c0697c0>, <lambdatune.config_selection.index.Index object at 0x11c069dc0>, <lambdatune.config_selection.index.Index object at 0x11c0698e0>, <lambdatune.config_selection.index.Index object at 0x11c069310>, <lambdatune.config_selection.index.Index object at 0x11c069940>, <lambdatune.config_selection.index.Index object at 0x11c069ca0>, <lambdatune.config_selection.index.Index object at 0x11c069e20>, <lambdatune.config_selection.index.Index object at 0x11c069760>}
+INFO:root:Query Indexes: 8
+INFO:root:Running query: 08 with timeout: 0.1958303451538086
+INFO:root:Created Indexes: {<lambdatune.config_selection.index.Index object at 0x11c069d60>, <lambdatune.config_selection.index.Index object at 0x11c069e80>, <lambdatune.config_selection.index.Index object at 0x11c069bb0>, <lambdatune.config_selection.index.Index object at 0x11c069700>, <lambdatune.config_selection.index.Index object at 0x11c0697f0>, <lambdatune.config_selection.index.Index object at 0x11c069ac0>, <lambdatune.config_selection.index.Index object at 0x11c0697c0>, <lambdatune.config_selection.index.Index object at 0x11c069dc0>, <lambdatune.config_selection.index.Index object at 0x11c0698e0>, <lambdatune.config_selection.index.Index object at 0x11c069310>, <lambdatune.config_selection.index.Index object at 0x11c069940>, <lambdatune.config_selection.index.Index object at 0x11c069ca0>, <lambdatune.config_selection.index.Index object at 0x11c069e20>, <lambdatune.config_selection.index.Index object at 0x11c069760>}
+INFO:root:Query Indexes: 12
+INFO:root:Config exceeded timeout
+INFO:root:{
+  "config_id": "config_tpch_tokens_9223372036854775807_0.2_1746590568",
+  "total_query_execution_time": 9.51366376876831,
+  "total_completed_query_execution_time": 9.236850023269653,
+  "best_execution_time": 9.432680368423462,
+  "duration_seconds": 78.82227182388306,
+  "start_time": 1746590624.180803,
+  "report_ts": 1746590649.422822,
+  "round_num_indexes_created": 14,
+  "round_index_creation_time": 4.362269163131714,
+  "round_query_execution_time": 9.51366376876831,
+  "round_completed_queries": 18,
+  "round_config_reset_time": 0.06668424606323242,
+  "round_reconfiguration_time": 10.993206024169922,
+  "queries_completed_total": 18,
+  "num_indexes_created_total": 14,
+  "num_indexes_total": 14,
+  "completed": false,
+  "timeout": 9.432680368423462,
+  "alpha": 10,
+  "driver_config": {
+    "allow_in_place_tablespaces": "off",
+    "allow_system_table_mods": "off",
+    "application_name": "",
+    "archive_cleanup_command": "",
+    "archive_command": "(disabled)",
+    "archive_mode": "off",
+    "archive_timeout": "0",
+    "array_nulls": "on",
+    "authentication_timeout": "1min",
+    "autovacuum": "on",
+    "autovacuum_analyze_scale_factor": "0.1",
+    "autovacuum_analyze_threshold": "50",
+    "autovacuum_freeze_max_age": "200000000",
+    "autovacuum_max_workers": "3",
+    "autovacuum_multixact_freeze_max_age": "400000000",
+    "autovacuum_naptime": "1min",
+    "autovacuum_vacuum_cost_delay": "2ms",
+    "autovacuum_vacuum_cost_limit": "-1",
+    "autovacuum_vacuum_insert_scale_factor": "0.2",
+    "autovacuum_vacuum_insert_threshold": "1000",
+    "autovacuum_vacuum_scale_factor": "0.2",
+    "autovacuum_vacuum_threshold": "50",
+    "autovacuum_work_mem": "-1",
+    "backend_flush_after": "0",
+    "backslash_quote": "safe_encoding",
+    "backtrace_functions": "",
+    "bgwriter_delay": "200ms",
+    "bgwriter_flush_after": "0",
+    "bgwriter_lru_maxpages": "100",
+    "bgwriter_lru_multiplier": "2",
+    "block_size": "8192",
+    "bonjour": "off",
+    "bonjour_name": "",
+    "bytea_output": "hex",
+    "check_function_bodies": "on",
+    "checkpoint_completion_target": "0.9",
+    "checkpoint_flush_after": "0",
+    "checkpoint_timeout": "5min",
+    "checkpoint_warning": "30s",
+    "client_connection_check_interval": "0",
+    "client_encoding": "UTF8",
+    "client_min_messages": "notice",
+    "cluster_name": "",
+    "commit_delay": "0",
+    "commit_siblings": "5",
+    "compute_query_id": "auto",
+    "config_file": "/opt/homebrew/var/postgresql@14/postgresql.conf",
+    "constraint_exclusion": "partition",
+    "cpu_index_tuple_cost": "0.005",
+    "cpu_operator_cost": "0.0025",
+    "cpu_tuple_cost": "0.01",
+    "cursor_tuple_fraction": "0.1",
+    "data_checksums": "off",
+    "data_directory": "/opt/homebrew/var/postgresql@14",
+    "data_directory_mode": "0700",
+    "data_sync_retry": "off",
+    "DateStyle": "ISO, MDY",
+    "db_user_namespace": "off",
+    "deadlock_timeout": "1s",
+    "debug_assertions": "off",
+    "debug_discard_caches": "0",
+    "debug_pretty_print": "on",
+    "debug_print_parse": "off",
+    "debug_print_plan": "off",
+    "debug_print_rewritten": "off",
+    "default_statistics_target": "100",
+    "default_table_access_method": "heap",
+    "default_tablespace": "",
+    "default_text_search_config": "pg_catalog.english",
+    "default_toast_compression": "pglz",
+    "default_transaction_deferrable": "off",
+    "default_transaction_isolation": "read committed",
+    "default_transaction_read_only": "off",
+    "dynamic_library_path": "$libdir",
+    "dynamic_shared_memory_type": "posix",
+    "effective_cache_size": "45GB",
+    "effective_io_concurrency": "0",
+    "enable_async_append": "on",
+    "enable_bitmapscan": "on",
+    "enable_gathermerge": "on",
+    "enable_hashagg": "on",
+    "enable_hashjoin": "on",
+    "enable_incremental_sort": "on",
+    "enable_indexonlyscan": "on",
+    "enable_indexscan": "on",
+    "enable_material": "on",
+    "enable_memoize": "on",
+    "enable_mergejoin": "on",
+    "enable_nestloop": "on",
+    "enable_parallel_append": "on",
+    "enable_parallel_hash": "on",
+    "enable_partition_pruning": "on",
+    "enable_partitionwise_aggregate": "off",
+    "enable_partitionwise_join": "off",
+    "enable_seqscan": "on",
+    "enable_sort": "on",
+    "enable_tidscan": "on",
+    "escape_string_warning": "on",
+    "event_source": "PostgreSQL",
+    "exit_on_error": "off",
+    "external_pid_file": "",
+    "extra_float_digits": "1",
+    "force_parallel_mode": "off",
+    "from_collapse_limit": "8",
+    "fsync": "on",
+    "full_page_writes": "on",
+    "geqo": "on",
+    "geqo_effort": "5",
+    "geqo_generations": "0",
+    "geqo_pool_size": "0",
+    "geqo_seed": "0",
+    "geqo_selection_bias": "2",
+    "geqo_threshold": "12",
+    "gin_fuzzy_search_limit": "0",
+    "gin_pending_list_limit": "4MB",
+    "hash_mem_multiplier": "1",
+    "hba_file": "/opt/homebrew/var/postgresql@14/pg_hba.conf",
+    "hot_standby": "on",
+    "hot_standby_feedback": "off",
+    "huge_page_size": "0",
+    "huge_pages": "try",
+    "ident_file": "/opt/homebrew/var/postgresql@14/pg_ident.conf",
+    "idle_in_transaction_session_timeout": "0",
+    "idle_session_timeout": "0",
+    "ignore_checksum_failure": "off",
+    "ignore_invalid_pages": "off",
+    "ignore_system_indexes": "off",
+    "in_hot_standby": "off",
+    "integer_datetimes": "on",
+    "IntervalStyle": "postgres",
+    "jit": "on",
+    "jit_above_cost": "100000",
+    "jit_debugging_support": "off",
+    "jit_dump_bitcode": "off",
+    "jit_expressions": "on",
+    "jit_inline_above_cost": "500000",
+    "jit_optimize_above_cost": "500000",
+    "jit_profiling_support": "off",
+    "jit_provider": "llvmjit",
+    "jit_tuple_deforming": "on",
+    "join_collapse_limit": "8",
+    "krb_caseins_users": "off",
+    "krb_server_keyfile": "FILE:/opt/homebrew/Cellar/postgresql@14/14.17_1/etc/krb5.keytab",
+    "lc_collate": "C",
+    "lc_ctype": "C",
+    "lc_messages": "C",
+    "lc_monetary": "C",
+    "lc_numeric": "C",
+    "lc_time": "C",
+    "listen_addresses": "localhost",
+    "lo_compat_privileges": "off",
+    "local_preload_libraries": "",
+    "lock_timeout": "0",
+    "log_autovacuum_min_duration": "-1",
+    "log_checkpoints": "off",
+    "log_connections": "off",
+    "log_destination": "stderr",
+    "log_directory": "log",
+    "log_disconnections": "off",
+    "log_duration": "off",
+    "log_error_verbosity": "default",
+    "log_executor_stats": "off",
+    "log_file_mode": "0600",
+    "log_filename": "postgresql-%Y-%m-%d_%H%M%S.log",
+    "log_hostname": "off",
+    "log_line_prefix": "%m [%p] ",
+    "log_lock_waits": "off",
+    "log_min_duration_sample": "-1",
+    "log_min_duration_statement": "-1",
+    "log_min_error_statement": "error",
+    "log_min_messages": "warning",
+    "log_parameter_max_length": "-1",
+    "log_parameter_max_length_on_error": "0",
+    "log_parser_stats": "off",
+    "log_planner_stats": "off",
+    "log_recovery_conflict_waits": "off",
+    "log_replication_commands": "off",
+    "log_rotation_age": "1d",
+    "log_rotation_size": "10MB",
+    "log_statement": "none",
+    "log_statement_sample_rate": "1",
+    "log_statement_stats": "off",
+    "log_temp_files": "-1",
+    "log_timezone": "America/Chicago",
+    "log_transaction_sample_rate": "0",
+    "log_truncate_on_rotation": "off",
+    "logging_collector": "off",
+    "logical_decoding_work_mem": "64MB",
+    "maintenance_io_concurrency": "0",
+    "maintenance_work_mem": "2GB",
+    "max_connections": "100",
+    "max_files_per_process": "1000",
+    "max_function_args": "100",
+    "max_identifier_length": "63",
+    "max_index_keys": "32",
+    "max_locks_per_transaction": "64",
+    "max_logical_replication_workers": "4",
+    "max_parallel_maintenance_workers": "2",
+    "max_parallel_workers": "8",
+    "max_parallel_workers_per_gather": "4",
+    "max_pred_locks_per_page": "2",
+    "max_pred_locks_per_relation": "-2",
+    "max_pred_locks_per_transaction": "64",
+    "max_prepared_transactions": "0",
+    "max_replication_slots": "10",
+    "max_slot_wal_keep_size": "-1",
+    "max_stack_depth": "2MB",
+    "max_standby_archive_delay": "30s",
+    "max_standby_streaming_delay": "30s",
+    "max_sync_workers_per_subscription": "2",
+    "max_wal_senders": "10",
+    "max_wal_size": "1GB",
+    "max_worker_processes": "8",
+    "min_dynamic_shared_memory": "0",
+    "min_parallel_index_scan_size": "512kB",
+    "min_parallel_table_scan_size": "8MB",
+    "min_wal_size": "80MB",
+    "old_snapshot_threshold": "-1",
+    "parallel_leader_participation": "on",
+    "parallel_setup_cost": "1000",
+    "parallel_tuple_cost": "0.1",
+    "password_encryption": "scram-sha-256",
+    "plan_cache_mode": "auto",
+    "port": "5432",
+    "post_auth_delay": "0",
+    "pre_auth_delay": "0",
+    "primary_conninfo": "",
+    "primary_slot_name": "",
+    "promote_trigger_file": "",
+    "quote_all_identifiers": "off",
+    "random_page_cost": "1.1",
+    "recovery_end_command": "",
+    "recovery_init_sync_method": "fsync",
+    "recovery_min_apply_delay": "0",
+    "recovery_target": "",
+    "recovery_target_action": "pause",
+    "recovery_target_inclusive": "on",
+    "recovery_target_lsn": "",
+    "recovery_target_name": "",
+    "recovery_target_time": "",
+    "recovery_target_timeline": "latest",
+    "recovery_target_xid": "",
+    "remove_temp_files_after_crash": "on",
+    "restart_after_crash": "on",
+    "restore_command": "",
+    "restrict_nonsystem_relation_kind": "",
+    "row_security": "on",
+    "search_path": "\"$user\", public",
+    "segment_size": "1GB",
+    "seq_page_cost": "1",
+    "server_encoding": "UTF8",
+    "server_version": "14.17 (Homebrew)",
+    "server_version_num": "140017",
+    "session_preload_libraries": "",
+    "session_replication_role": "origin",
+    "shared_buffers": "15GB",
+    "shared_memory_type": "mmap",
+    "shared_preload_libraries": "",
+    "ssl": "off",
+    "ssl_ca_file": "",
+    "ssl_cert_file": "server.crt",
+    "ssl_ciphers": "HIGH:MEDIUM:+3DES:!aNULL",
+    "ssl_crl_dir": "",
+    "ssl_crl_file": "",
+    "ssl_dh_params_file": "",
+    "ssl_ecdh_curve": "prime256v1",
+    "ssl_key_file": "server.key",
+    "ssl_library": "OpenSSL",
+    "ssl_max_protocol_version": "",
+    "ssl_min_protocol_version": "TLSv1.2",
+    "ssl_passphrase_command": "",
+    "ssl_passphrase_command_supports_reload": "off",
+    "ssl_prefer_server_ciphers": "on",
+    "standard_conforming_strings": "on",
+    "statement_timeout": "0",
+    "stats_temp_directory": "pg_stat_tmp",
+    "superuser_reserved_connections": "3",
+    "synchronize_seqscans": "on",
+    "synchronous_commit": "on",
+    "synchronous_standby_names": "",
+    "syslog_facility": "local0",
+    "syslog_ident": "postgres",
+    "syslog_sequence_numbers": "on",
+    "syslog_split_messages": "on",
+    "tcp_keepalives_count": "8",
+    "tcp_keepalives_idle": "7200",
+    "tcp_keepalives_interval": "75",
+    "tcp_user_timeout": "0",
+    "temp_buffers": "8MB",
+    "temp_file_limit": "-1",
+    "temp_tablespaces": "",
+    "TimeZone": "America/Chicago",
+    "timezone_abbreviations": "Default",
+    "trace_notify": "off",
+    "trace_recovery_messages": "log",
+    "trace_sort": "off",
+    "track_activities": "on",
+    "track_activity_query_size": "1kB",
+    "track_commit_timestamp": "off",
+    "track_counts": "on",
+    "track_functions": "none",
+    "track_io_timing": "off",
+    "track_wal_io_timing": "off",
+    "transaction_deferrable": "off",
+    "transaction_isolation": "read committed",
+    "transaction_read_only": "off",
+    "transform_null_equals": "off",
+    "unix_socket_directories": "/tmp",
+    "unix_socket_group": "",
+    "unix_socket_permissions": "0777",
+    "update_process_title": "on",
+    "vacuum_cost_delay": "0",
+    "vacuum_cost_limit": "200",
+    "vacuum_cost_page_dirty": "20",
+    "vacuum_cost_page_hit": "1",
+    "vacuum_cost_page_miss": "2",
+    "vacuum_defer_cleanup_age": "0",
+    "vacuum_failsafe_age": "1600000000",
+    "vacuum_freeze_min_age": "50000000",
+    "vacuum_freeze_table_age": "150000000",
+    "vacuum_multixact_failsafe_age": "1600000000",
+    "vacuum_multixact_freeze_min_age": "5000000",
+    "vacuum_multixact_freeze_table_age": "150000000",
+    "wal_block_size": "8192",
+    "wal_buffers": "16MB",
+    "wal_compression": "off",
+    "wal_consistency_checking": "",
+    "wal_init_zero": "on",
+    "wal_keep_size": "0",
+    "wal_level": "replica",
+    "wal_log_hints": "off",
+    "wal_receiver_create_temp_slot": "off",
+    "wal_receiver_status_interval": "10s",
+    "wal_receiver_timeout": "1min",
+    "wal_recycle": "on",
+    "wal_retrieve_retry_interval": "5s",
+    "wal_segment_size": "16MB",
+    "wal_sender_timeout": "1min",
+    "wal_skip_threshold": "2MB",
+    "wal_sync_method": "open_datasync",
+    "wal_writer_delay": "200ms",
+    "wal_writer_flush_after": "1MB",
+    "work_mem": "256MB",
+    "xmlbinary": "base64",
+    "xmloption": "content",
+    "zero_damaged_pages": "off"
+  },
+  "lambda_tune_config": [
+    "ALTER SYSTEM SET effective_io_concurrency = 200;",
+    "ALTER SYSTEM SET random_page_cost = 1.1;",
+    "ALTER SYSTEM SET max_parallel_workers_per_gather = 4;",
+    "ALTER SYSTEM SET shared_buffers = '15GB';",
+    "ALTER SYSTEM SET max_parallel_workers = 8;",
+    "ALTER SYSTEM SET maintenance_work_mem = '2GB';",
+    "ALTER SYSTEM SET effective_cache_size = '45GB';",
+    "ALTER SYSTEM SET work_mem = '256MB';"
+  ],
+  "created_indexes": [
+    "idx_part_p_partkey_19",
+    "idx_partsupp_ps_partkey_16",
+    "idx_supplier_s_suppkey_25",
+    "idx_partsupp_ps_suppkey_26",
+    "idx_nation_n_nationkey_18",
+    "idx_nation_n_regionkey_27",
+    "idx_supplier_s_nationkey_20",
+    "idx_orders_o_orderkey_23",
+    "idx_lineitem_l_orderkey_22",
+    "idx_customer_c_custkey_21",
+    "idx_orders_o_custkey_14",
+    "idx_customer_c_nationkey_15",
+    "idx_lineitem_l_suppkey_17",
+    "idx_lineitem_l_partkey_24"
+  ],
+  "round_completed_query_times": {
+    "01": 1.5146710872650146,
+    "06": 0.12078404426574707,
+    "16": 0.08023619651794434,
+    "02": 0.09195899963378906,
+    "11": 0.03627490997314453,
+    "04": 0.05877208709716797,
+    "12": 0.3242061138153076,
+    "03": 0.22565078735351562,
+    "13": 0.44744396209716797,
+    "18": 2.4640767574310303,
+    "22": 0.03692293167114258,
+    "10": 0.1286931037902832,
+    "15": 2.497197151184082,
+    "05": 0.12490200996398926,
+    "07": 0.35700297355651855,
+    "21": 0.2932279109954834,
+    "09": 0.1192941665649414,
+    "20": 0.3155348300933838
+  }
+}
+INFO:root:New config order
+INFO:root:config_tpch_tokens_9223372036854775807_0.2_1746590544.json: 18
+INFO:root:config_tpch_tokens_9223372036854775807_0.2_1746590556.json: 18
+INFO:root:config_tpch_tokens_9223372036854775807_0.2_1746590568.json: 18
+INFO:root:Resetting configuration
+INFO:root:Dropping index: idx_part_p_partkey_19
+INFO:root:Dropping index: idx_partsupp_ps_partkey_16
+INFO:root:Dropping index: idx_supplier_s_suppkey_25
+INFO:root:Dropping index: idx_partsupp_ps_suppkey_26
+INFO:root:Dropping index: idx_nation_n_nationkey_18
+INFO:root:Dropping index: idx_nation_n_regionkey_27
+INFO:root:Dropping index: idx_supplier_s_nationkey_20
+INFO:root:Dropping index: idx_orders_o_orderkey_23
+INFO:root:Dropping index: idx_lineitem_l_orderkey_22
+INFO:root:Dropping index: idx_customer_c_custkey_21
+INFO:root:Dropping index: idx_orders_o_custkey_14
+INFO:root:Dropping index: idx_customer_c_nationkey_15
+INFO:root:Dropping index: idx_lineitem_l_suppkey_17
+INFO:root:Dropping index: idx_lineitem_l_partkey_24
+INFO:root:Resetting Postgres configuration
+INFO:root:Restarting Postgres
+INFO:root:Done!
+WARNING:root:Attempt 1 failed: connection to server at "127.0.0.1", port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+INFO:root:Connected to Postgres
+INFO:root:Done!
+Recommend some configuration parameters for postgres to optimize the system's performance. Such parameters might include system-level configurations, like memory, query optimizer hints (such as join strategies, scan costs, parallelism, etc), or query-level configurations.Include index recommendations (CREATE INDEX).
+
+Each row in the following list has the following format:
+{a join key A}:{all the joins with A in the workload}.
+
+nation.n_regionkey: ['region.r_regionkey']
+supplier.s_nationkey: ['nation.n_nationkey']
+partsupp.ps_suppkey: ['supplier.s_suppkey']
+partsupp.ps_partkey: ['part.p_partkey']
+orders.o_custkey: ['customer.c_custkey']
+lineitem.l_orderkey: ['lineitem.l_orderkey', 'orders.o_orderkey']
+customer.c_nationkey: ['nation.n_nationkey']
+part.p_partkey: ['lineitem.l_partkey']
+supplier.s_suppkey: ['lineitem.l_suppkey', 'partsupp.ps_suppkey']
+lineitem.l_partkey: ['part.p_partkey']
+lineitem.l_suppkey: ['supplier.s_suppkey']
+orders.o_orderkey: ['lineitem.l_orderkey']
+customer.c_custkey: ['orders.o_custkey']
+nation.n_nationkey: ['supplier.s_nationkey']
+
+The workload runs on a system with the following specs:memory: 61GiB
+cores: 8
+
+Your response should strictly consist of a python-compatible JSON response of the following schema. Do not include any additional text in the prompt, such as descriptions or intros. Return just apython-compatible list only.
+{
+	commands: [list of the SQL commands]
+}
+Done: new_config
+Recommend some configuration parameters for postgres to optimize the system's performance. Such parameters might include system-level configurations, like memory, query optimizer hints (such as join strategies, scan costs, parallelism, etc), or query-level configurations.Include index recommendations (CREATE INDEX).
+
+Each row in the following list has the following format:
+{a join key A}:{all the joins with A in the workload}.
+
+nation.n_regionkey: ['region.r_regionkey']
+supplier.s_nationkey: ['nation.n_nationkey']
+partsupp.ps_suppkey: ['supplier.s_suppkey']
+partsupp.ps_partkey: ['part.p_partkey']
+orders.o_custkey: ['customer.c_custkey']
+lineitem.l_orderkey: ['lineitem.l_orderkey', 'orders.o_orderkey']
+customer.c_nationkey: ['nation.n_nationkey']
+part.p_partkey: ['lineitem.l_partkey']
+supplier.s_suppkey: ['lineitem.l_suppkey', 'partsupp.ps_suppkey']
+lineitem.l_partkey: ['part.p_partkey']
+lineitem.l_suppkey: ['supplier.s_suppkey']
+orders.o_orderkey: ['lineitem.l_orderkey']
+customer.c_custkey: ['orders.o_custkey']
+nation.n_nationkey: ['supplier.s_nationkey']
+
+The workload runs on a system with the following specs:memory: 61GiB
+cores: 8
+
+Your response should strictly consist of a python-compatible JSON response of the following schema. Do not include any additional text in the prompt, such as descriptions or intros. Return just apython-compatible list only.
+{
+	commands: [list of the SQL commands]
+}
+Done: new_config
+Recommend some configuration parameters for postgres to optimize the system's performance. Such parameters might include system-level configurations, like memory, query optimizer hints (such as join strategies, scan costs, parallelism, etc), or query-level configurations.Include index recommendations (CREATE INDEX).
+
+Each row in the following list has the following format:
+{a join key A}:{all the joins with A in the workload}.
+
+nation.n_regionkey: ['region.r_regionkey']
+supplier.s_nationkey: ['nation.n_nationkey']
+partsupp.ps_suppkey: ['supplier.s_suppkey']
+partsupp.ps_partkey: ['part.p_partkey']
+orders.o_custkey: ['customer.c_custkey']
+lineitem.l_orderkey: ['lineitem.l_orderkey', 'orders.o_orderkey']
+customer.c_nationkey: ['nation.n_nationkey']
+part.p_partkey: ['lineitem.l_partkey']
+supplier.s_suppkey: ['lineitem.l_suppkey', 'partsupp.ps_suppkey']
+lineitem.l_partkey: ['part.p_partkey']
+lineitem.l_suppkey: ['supplier.s_suppkey']
+orders.o_orderkey: ['lineitem.l_orderkey']
+customer.c_custkey: ['orders.o_custkey']
+nation.n_nationkey: ['supplier.s_nationkey']
+
+The workload runs on a system with the following specs:memory: 61GiB
+cores: 8
+
+Your response should strictly consist of a python-compatible JSON response of the following schema. Do not include any additional text in the prompt, such as descriptions or intros. Return just apython-compatible list only.
+{
+	commands: [list of the SQL commands]
+}
+Done: new_config
+Loading: config_tpch_tokens_9223372036854775807_0.2_1746590556.json
+Loading: config_tpch_tokens_9223372036854775807_0.2_1746590568.json
+Loading: config_tpch_tokens_9223372036854775807_0.2_1746590544.json
+CREATE INDEX idx_orders_o_custkey ON orders(o_custkey);
+CREATE INDEX idx_customer_c_nationkey ON customer(c_nationkey);
+CREATE INDEX idx_partsupp_ps_partkey ON partsupp(ps_partkey);
+CREATE INDEX idx_lineitem_l_suppkey ON lineitem(l_suppkey);
+CREATE INDEX idx_nation_n_nationkey ON nation(n_nationkey);
+CREATE INDEX idx_supplier_s_nationkey ON supplier(s_nationkey);
+CREATE INDEX idx_part_p_partkey ON part(p_partkey);
+CREATE INDEX idx_customer_c_custkey ON customer(c_custkey);
+CREATE INDEX idx_lineitem_l_orderkey ON lineitem(l_orderkey);
+CREATE INDEX idx_orders_o_orderkey ON orders(o_orderkey);
+CREATE INDEX idx_lineitem_l_partkey ON lineitem(l_partkey);
+CREATE INDEX idx_supplier_s_suppkey ON supplier(s_suppkey);
+CREATE INDEX idx_partsupp_ps_suppkey ON partsupp(ps_suppkey);
+CREATE INDEX idx_nation_n_regionkey ON nation(n_regionkey);
+CREATE INDEX idx_orders_o_custkey ON orders(o_custkey);
+CREATE INDEX idx_customer_c_nationkey ON customer(c_nationkey);
+CREATE INDEX idx_partsupp_ps_partkey ON partsupp(ps_partkey);
+CREATE INDEX idx_lineitem_l_suppkey ON lineitem(l_suppkey);
+CREATE INDEX idx_nation_n_nationkey ON nation(n_nationkey);
+CREATE INDEX idx_part_p_partkey ON part(p_partkey);
+CREATE INDEX idx_supplier_s_nationkey ON supplier(s_nationkey);
+CREATE INDEX idx_customer_c_custkey ON customer(c_custkey);
+CREATE INDEX idx_lineitem_l_orderkey ON lineitem(l_orderkey);
+CREATE INDEX idx_orders_o_orderkey ON orders(o_orderkey);
+CREATE INDEX idx_lineitem_l_partkey ON lineitem(l_partkey);
+CREATE INDEX idx_supplier_s_suppkey ON supplier(s_suppkey);
+CREATE INDEX idx_partsupp_ps_suppkey ON partsupp(ps_suppkey);
+CREATE INDEX idx_nation_n_regionkey ON nation(n_regionkey);
+CREATE INDEX idx_orders_o_custkey ON orders(o_custkey);
+CREATE INDEX idx_customer_c_nationkey ON customer(c_nationkey);
+CREATE INDEX idx_partsupp_ps_partkey ON partsupp(ps_partkey);
+CREATE INDEX idx_lineitem_l_suppkey ON lineitem(l_suppkey);
+CREATE INDEX idx_nation_n_nationkey ON nation(n_nationkey);
+CREATE INDEX idx_supplier_s_nationkey ON supplier(s_nationkey);
+CREATE INDEX idx_part_p_partkey ON part(p_partkey);
+CREATE INDEX idx_customer_c_custkey ON customer(c_custkey);
+CREATE INDEX idx_lineitem_l_orderkey ON lineitem(l_orderkey);
+CREATE INDEX idx_orders_o_orderkey ON orders(o_orderkey);
+CREATE INDEX idx_lineitem_l_partkey ON lineitem(l_partkey);
+CREATE INDEX idx_supplier_s_suppkey ON supplier(s_suppkey);
+CREATE INDEX idx_partsupp_ps_suppkey ON partsupp(ps_suppkey);
+CREATE INDEX idx_nation_n_regionkey ON nation(n_regionkey);
+invalid value for parameter "effective_io_concurrency": 200
+DETAIL:  effective_io_concurrency must be set to 0 on platforms that lack posix_fadvise().
+
+invalid value for parameter "effective_io_concurrency": 200
+DETAIL:  effective_io_concurrency must be set to 0 on platforms that lack posix_fadvise().
+
+invalid value for parameter "effective_io_concurrency": 200
+DETAIL:  effective_io_concurrency must be set to 0 on platforms that lack posix_fadvise().
+
