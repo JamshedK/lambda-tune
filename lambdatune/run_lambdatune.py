@@ -59,7 +59,10 @@ if __name__ == "__main__":
 
     logging.info(f"LLM Config Dir: {llm_configs_dir}")
 
-    driver = get_dbms_driver(system, db=benchmark)
+    # Read db name from [POSTGRES] section in config.ini
+    db_name = config_parser.get("POSTGRES", "db", fallback=benchmark)
+
+    driver = get_dbms_driver(system, db=db_name)
     queries = None
 
     if benchmark == "tpch": queries = get_tpch_queries()
@@ -80,7 +83,7 @@ if __name__ == "__main__":
                                             num_cores=cores,
                                             num_configs=3)
 
-    timeouts = [10]
+    timeouts = [120]
 
     configurations = ConfigurationSelector.load_configs(llm_configs_dir, system=system)
 
@@ -88,10 +91,10 @@ if __name__ == "__main__":
         selector = ConfigurationSelector(configs=configurations,
                                          driver=driver,
                                          queries=queries,
-                                         enable_query_scheduler=True,
+                                         enable_query_scheduler=False,
                                          create_all_indexes_first=False,
-                                         create_indexes=True,
-                                         drop_indexes=True,
+                                         create_indexes=False,
+                                         drop_indexes=False,
                                          reset_command="ALTER SYSTEM RESET ALL;",
                                          initial_time_out_seconds=timeout,
                                          timeout_interval=10,

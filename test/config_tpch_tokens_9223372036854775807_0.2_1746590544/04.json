@@ -1,5 +1,0 @@
-{
-  "execTime": 54.7792911529541,
-  "config": null,
-  "plan": "Limit  (cost=35691.48..45884.55 rows=1 width=24)\n  ->  GroupAggregate  (cost=35691.48..86656.86 rows=5 width=24)\n        Group Key: orders.o_orderpriority\n        ->  Nested Loop Semi Join  (cost=35691.48..86580.21 rows=15319 width=16)\n              ->  Gather Merge  (cost=35691.04..42601.44 rows=58411 width=20)\n                    Workers Planned: 3\n                    ->  Sort  (cost=34691.00..34738.11 rows=18842 width=20)\n                          Sort Key: orders.o_orderpriority\n                          ->  Parallel Seq Scan on orders  (cost=0.00..33353.06 rows=18842 width=20)\n                                Filter: ((o_orderdate >= '1995-05-01'::date) AND (o_orderdate < '1995-08-01 00:00:00'::timestamp without time zone))\n              ->  Index Scan using idx_lineitem_l_orderkey_36 on lineitem  (cost=0.43..1.78 rows=5 width=4)\n                    Index Cond: (l_orderkey = orders.o_orderkey)\n                    Filter: (l_commitdate < l_receiptdate)"
-}

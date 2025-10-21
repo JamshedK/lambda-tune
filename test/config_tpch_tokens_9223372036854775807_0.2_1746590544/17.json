@@ -1,5 +1,0 @@
-{
-  "execTime": 312.0598793029785,
-  "config": null,
-  "plan": "Limit  (cost=195004.82..195004.83 rows=1 width=32)\n  ->  Aggregate  (cost=195004.82..195004.83 rows=1 width=32)\n        ->  Hash Join  (cost=6368.82..194999.97 rows=1940 width=8)\n              Hash Cond: (lineitem.l_partkey = part.p_partkey)\n              Join Filter: (lineitem.l_quantity < (SubPlan 1))\n              ->  Seq Scan on lineitem  (cost=0.00..172515.15 rows=6001215 width=17)\n              ->  Hash  (cost=6366.40..6366.40 rows=194 width=4)\n                    ->  Gather  (cost=1000.00..6366.40 rows=194 width=4)\n                          Workers Planned: 2\n                          ->  Parallel Seq Scan on part  (cost=0.00..5347.00 rows=81 width=4)\n                                Filter: ((p_brand = 'Brand#22'::bpchar) AND (p_container = 'SM BAG'::bpchar))\n              SubPlan 1\n                ->  Aggregate  (cost=36.25..36.27 rows=1 width=32)\n                      ->  Index Scan using idx_lineitem_l_partkey_38 on lineitem lineitem_1  (cost=0.43..36.17 rows=31 width=5)\n                            Index Cond: (l_partkey = part.p_partkey)"
-}

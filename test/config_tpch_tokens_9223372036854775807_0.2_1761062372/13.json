@@ -1,0 +1,5 @@
+{
+  "execTime": 7647.4926471710205,
+  "config": null,
+  "plan": "Limit  (cost=325128.04..325128.04 rows=1 width=16)\n  ->  Sort  (cost=325128.04..325128.54 rows=200 width=16)\n        Sort Key: (count(*)) DESC, (count(orders.o_orderkey)) DESC\n        ->  HashAggregate  (cost=325125.04..325127.04 rows=200 width=16)\n              Group Key: count(orders.o_orderkey)\n              ->  HashAggregate  (cost=306375.04..313875.04 rows=750000 width=12)\n                    Group Key: customer.c_custkey\n                    ->  Hash Right Join  (cost=26132.42..269632.54 rows=7348500 width=8)\n                          Hash Cond: (orders.o_custkey = customer.c_custkey)\n                          ->  Seq Scan on orders  (cost=0.00..224210.19 rows=7348500 width=8)\n                                Filter: ((o_comment)::text !~~ '%unusual%requests%'::text)\n                          ->  Hash  (cost=16757.42..16757.42 rows=750000 width=4)\n                                ->  Index Only Scan using c_ck on customer  (cost=0.42..16757.42 rows=750000 width=4)\nJIT:\n  Functions: 16\n  Options: Inlining false, Optimization false, Expressions true, Deforming true"
+}

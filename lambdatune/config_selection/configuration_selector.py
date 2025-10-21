@@ -77,6 +77,51 @@ class ConfigurationSelector:
 
         # Reset the system configuration
         self.driver.reset_configuration(restart_system=restart_system)
+    
+    def run_query_under_default(self):
+        logging.info("DEFAULT: Getting total query execution time under default configuration")
+        total_execution_time = 0.0
+        query_times = {}
+
+        # Reset configuration to default
+        logging.info("Resetting to default configuration")
+        self.reset_configuration(restart_system=True, drop_indexes=False)
+
+        for query_id, query_str in self.queries.items():
+            logging.info(f"DEFAULT: Running query {query_id}")
+            start = time.time()
+            result = self.driver.explain(query_str, execute=True)
+            dur = time.time() - start
+            total_execution_time += dur
+            logging.info(f"DEFAULT: Query {query_id} took: {dur:.4f} seconds")
+            query_times[query_id] = dur
+
+        logging.info(f"DEFAULT: Total execution time: {total_execution_time:.4f} seconds")
+        return total_execution_time
+
+    def save_default_configuration_data_to_reports(self, reports_path, default_execution_time):
+        report = {
+            "config_id": "default",
+            "total_query_execution_time": default_execution_time,
+            "completed": True,
+            "report_ts": time.time()
+        }
+
+        # Load existing reports if any
+        if os.path.exists(reports_path):
+            with open(reports_path, "r") as f:
+                try:
+                    reports = json.load(f)
+                except Exception:
+                    reports = []
+        else:
+            reports = []
+
+        reports.append(report)
+
+        with open(reports_path, "w") as f:
+            json.dump(reports, f, indent=2)
+        logging.info(f"Saved default configuration report: {report}")
 
     def get_query_index_dependencies(self, index_configs):
         query_to_index = queries_to_index(self.queries.items(), index_configs)
@@ -86,7 +131,7 @@ class ConfigurationSelector:
     def sort_query_clusters(self, clusters):
         """
         Sorts the query clusters based on the cost of creating the indexes in that cluster, using dynamic programming.
-        @param clusters: The clusters to be sorted
+        @param clusters: The clusters to be sorteds
         @return: The sorted clusters
         """
         cluster_indexes = dict()
@@ -148,6 +193,12 @@ class ConfigurationSelector:
 
         if len(configs) == 0:
             raise Exception("No configurations were found.")
+
+        # run under default configuration
+        default_execution_time = self.run_query_under_default()
+        # Save default config execution time to reports
+        reports_output = f"{self.results_dir}/reports.json"
+        self.save_default_configuration_data_to_reports(reports_output, default_execution_time)
 
         start: float = time.time()
         while rounds_ran < self.max_rounds:
