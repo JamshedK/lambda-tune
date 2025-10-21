@@ -206,7 +206,7 @@ def get_configurations_with_full_queries():
             doc = get_config_recommendations_with_full_queries(dst_system="postgres", queries=q,
                                                          temperature=temperature,
                                                          retrieve_response=True,
-                                                         system_specs={"memory": "61GiB", "cores": 8})
+                                                         system_specs={"memory": "32GiB", "cores": 4})
 
             path = f"../configs/{dir}/config_{benchmark}_FULL_QUERIES_indexes_temp_{temperature}_{int(time.time())}.json"
             json.dump(doc, open(path, "w+"), indent=2)
@@ -237,7 +237,7 @@ def get_configurations_with_compression_hidden_columns():
                                                                   temperature=temp,
                                                                   retrieve_response=True,
                                                                   join_conditions=hidden_cols,
-                                                                  system_specs={"memory": "61GiB", "cores": 8},
+                                                                  system_specs={"memory": "32GiB", "cores": 4},
                                                                   indexes=True)
                 doc["hidden_table_cols"] = {
                     "tables": tables,
@@ -272,7 +272,7 @@ def get_configurations_with_compression(target_db: str, benchmark: str, memory_g
                                                           temperature=temperature,
                                                           retrieve_response=True,
                                                           join_conditions=optimized_with_dependencies,
-                                                          system_specs={"memory": "61GiB", "cores": 8},
+                                                          system_specs={"memory": "32GiB", "cores": 4},
                                                           indexes_only=False,
                                                           indexes=False)
 
